@@ -1,0 +1,128 @@
+
+Transcript
+0:00
+So far in this course, we've been starting our app using the terminal.
+0:04
+So we've said NPM start, and we know we can stop it using control c.
+0:10
+Well, you know how to do this now.
+0:12
+So from here on in, I'm actually going to turn on Scrimba's runner.
+0:15
+And what that means is that now we can start and stop our servers with these start stop buttons.
+0:21
+The start button will run NPM start under the hood.
+0:24
+It just saves us a little bit of time.
+0:26
+We don't have to write NPM start every single time we want to start the server.
+0:30
+So let's just close this terminal, and we've got a runner tab here, and we can see that it's in fact already running.
+0:37
+So now as soon as I hit control s, that will actually restart the server.
+0:41
+So if I make a change here, let's just add some exclamation marks, and I hit save.
+0:47
+And now if we send that, there we are.
+0:50
+We can see that already reflected.
+0:51
+And I can delete those, hit save, again, send, and they've gone.
+0:56
+Okay.
+0:57
+So that's how we'll be doing things from now on.
+1:00
+Right.
+1:00
+Let's just break down the code that we have got.
+1:03
+So we imported HTTP from node, and we used the create server method.
+1:08
+The callback function takes in two parameters, the request and response objects, and the response object has an end method, which sends some content over HTTP and then ends the response.
+1:20
+And this is, of course, not all the response object offers.
+1:23
+The response object actually has got methods which allow us to specify content type, set the status codes like two hundred and four hundred, etcetera, and provide content like HTML, JSON, and images.
+1:35
+And, obviously, we've seen some of that using And the rest of this, we'll be seeing examples of shortly.
+1:40
+What is quite interesting actually if we go back to the network widget is if we move over to headers, we're getting this two hundred already even though we're not using the response object to specify a status code.
+1:52
+So Node is doing some work under the hood for us, although what we're doing at the moment is bad practice.
+1:58
+You should explicitly send a status code, and as we work on this app, we will be including that.
+2:03
+Now I just wanna say a little bit more about the end method because the end method can actually take in three parameters, the data which we've got here, an encoding type, and the default is actually UTF eight, so we don't need to specify that.
+2:18
+That's what's being sent by default, And we can also add a callback function which will execute at the end of the process.
+2:25
+Let's just save that.
+2:26
+We'll clear our requests and send a new one.
+2:30
+So that looks like it's working absolutely fine.
+2:32
+And let's just open up the runner and we can see we've got response end right there so that has come from this callback function.
+2:40
+Now you might be thinking it's a little bit weird that we've started with this end method and in a way you're right we actually have got options here.
+2:47
+We don't have to use the end method to send data.
+2:49
+We've also got the write method.
+2:51
+And they have got a big overlap, which is that they both write data to the response body to be sent over HTTP.
+2:57
+The difference is that the end method ends the response as well.
+3:00
+It says this is the end of the stream.
+3:02
+This is the final piece of data.
+3:04
+And so in this case, as we're only sending one piece of data, we can do it all in one go.
+3:09
+But there are situations where you've got a lot going on and you want to send several chunks of data, you could do it with the right method.
+3:16
+So res dot write and I'm just going to send this is some data and I'll just end in a new line character and we could do this a couple of times.
+3:25
+Okay.
+3:26
+Let's save that and send a new request And there we are.
+3:31
+This is some data.
+3:31
+This is some more data.
+3:32
+This is from the server.
+3:33
+And again, in the runner, we have got response end.
+3:37
+And just to be clear, when you use res dot write, you still need to include res dot end.
+3:42
+We must finish the response else the browser will not know that the response has ended.
+3:46
+We don't need to send any data with it.
+3:48
+This would be absolutely fine.
+3:50
+Just call res dot end.
+3:51
+I'll hit save.
+3:52
+And again, there we are.
+3:54
+We're just getting some data, some more data, and then res dot end is closing the connection.
+3:58
+We won't see anything in the runner now, obviously, because we deleted the console dot log.
+4:02
+Okay.
+4:03
+So even though we're not gonna be using res dot write in this project, I just wanted to deal with that so you know about it.
+4:08
+And just spend a little bit more time with this code so we're really clear.
+4:12
+Now we've got this code working.
+4:14
+Before we move on, we're gonna take a quick look at the request response cycle just to fully understand how node servers work.
+4:21
+And then I promise it will be full steam ahead with the project.
