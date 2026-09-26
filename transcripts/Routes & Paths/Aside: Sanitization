@@ -1,0 +1,102 @@
+
+Transcript
+0:00
+Okay.
+0:00
+Here's the issue.
+0:01
+We're allowing users to input text, but we're not sanitizing it.
+0:05
+And that opens us up to cross site scripting attacks, which are often abbreviated to XSS.
+0:12
+A cross site scripting attack is a security vulnerability that allows an attacker to inject malicious scripts into web pages.
+0:20
+And if a user puts some malicious JavaScript in here wrapped in HTML instead of a cool ghost story, we will fall victim to just such an attack and that means we need sanitization and sanitization is removing anything suspicious from incoming input.
+0:37
+In this case, we'll be removing any tags from user uploaded text.
+0:41
+To do this we're going to use a dependency it's called sanitize HTML and if you click on this screenshot it will take you through to the docs for this NPM package but first let's have a look together.
+0:54
+So we need to install it by the power of npm so it's npm install sanitize hyphen html that should be installed let's check package dot json and here it is dependencies sanitize HTML Okay.
+1:08
+Now we need to import it and the function will take is called sanitize HTML.
+1:14
+It's just camel cased and it's coming from the package name sanitized hyphen HTML.
+1:21
+To use it, we just call this function and we pass in a string that we want to sanitize.
+1:26
+So let's try with an h one tag inside a string and we've got the text.
+1:30
+I'm in an h one tag and let's just wrap this in a console dot log and in fact let's try a bunch of these together.
+1:38
+So we've got an h one tag, a strong tag, a p tag, style tag and a script tag.
+1:44
+Okay.
+1:45
+I'm gonna save that and click run and look what we've got in the terminal.
+1:49
+We've got h one and then we've got the h one tag which has survived and the text which is inside it.
+1:55
+The same has happened with strong and with p but style and script, the tag and the contents of the tag have been completely removed And that is what we want to happen.
+2:05
+Nobody has got business inputting a script or a style tag here in our input fields.
+2:11
+We don't want anything to do with them if they try that.
+2:14
+Now for these other tags, we have got options.
+2:18
+If we want to block all tags, well, we can just pass in an object.
+2:22
+Let's just take this one example.
+2:24
+So I'll have comma and then this object right here has got allowed tags and the value is an empty array.
+2:31
+So there are no allowed tags in this array.
+2:34
+Allowed attributes we've got an empty object.
+2:36
+No allowed attributes are being provided by us so now when we hit save we'll get hi I'm in an h one tag but there's no sign of the actual h one tag itself.
+2:47
+The h one tag has been removed because it is not listed in this array.
+2:51
+Let's add h one and now the h one tag survives.
+2:55
+So having this level of control is really good.
+2:58
+We can disallow HTML, but we don't have to penalize non malicious actors by removing all of their content.
+3:04
+Maybe somebody used an h one tag or a b tag just to make part of their story stand out more.
+3:10
+So there's no need to remove all of their content like we want to do if they've tried to use a script tag for example.
+3:16
+So there's a ton that you can do with this NPM package, add all of the details in the docs.
+3:22
+Now we could leave it at that but that would be a little bit mean of me because in our project, we have to do something a little bit trickier because our submissions will be in an object.
+3:32
+Bear with me while I paste in some new code.
+3:34
+Okay.
+3:35
+So we've got a hacker with a title, surname, and a location.
+3:38
+And let's just try and sanitize this object.
+3:41
+When I save, actually, we get nothing in the terminal.
+3:44
+And that's because sanitize HTML is expecting a string.
+3:48
+So we could take the elements of the object one by one.
+3:51
+Let's try again and that's worked.
+3:53
+So let's try adding a script tag right here and when I save, evil is missing.
+3:59
+That whole line has been sanitized away.
+4:01
+So we can't be doing this.
+4:03
+Obviously, we need to find a dynamic way to iterate over the keys of this object and sanitize the values one by one if they're strings and replace them in the object.
+4:13
+I'm not gonna do that right now because this is a node course and not a Vanilla JS course, But when it comes to the challenge in the next scrim, I am gonna give you a hint file.
+4:23
+So let's head back to the main project and sanitize some input.
