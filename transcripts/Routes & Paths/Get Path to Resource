@@ -1,0 +1,92 @@
+
+Transcript
+0:00
+Instead of writing a ton of JavaScript spaghetti in server dot j s and then refactoring it later when it gets too messy to understand, let's be clever and keep things clean from the start.
+0:11
+To that end, I've set up a utilities folder, and in it, I've created a file called serve static.
+0:17
+And this is going to keep the logic for serving all of our static files.
+0:21
+So that will be any HTML page, any CSS, any front end JavaScript, and any assets like images.
+0:29
+Basically, everything that we've got in our public folder.
+0:32
+But this is not going to be for serving dynamic content like data.
+0:36
+Okay.
+0:36
+You've got three challenges to do here, but they're all relatively small.
+0:41
+For challenge one, I want you to get the name of the directory holding this server JS file, and I want you to store it to a const double underscore dir name.
+0:50
+Your second challenge is in the serve static dot JS file.
+0:54
+Here I want you to create an export a function called serve static.
+0:58
+It should take in the base directory as a parameter and the base directory in this case will be the const where you stored the directory name right here in server dot j s.
+1:09
+That is going to be passed to the serve static function in the third challenge.
+1:13
+Next, I want you to build a path to index dot HTML, which you'll find of course in the public folder and I want you to save that path to a const file path.
+1:21
+And a couple of questions, which node module will you need to import to do this and which method joins the path together?
+1:28
+All of that is information that you've got from the last couple of scrims.
+1:31
+When you're done, just log file path to the console.
+1:35
+And then the third challenge is in server dot j s.
+1:37
+I want you to import and call serve static and pass it the directory of the current module.
+1:42
+And the directory name that you're going to create here is holding the name of the base directory where server dot j s lives.
+1:50
+This makes life easier.
+1:51
+You don't need to do anything especially complicated when creating this path in the second part of this challenge.
+1:58
+All you need to do is make sure that file path leads from where this code will be called in server dot j s to the resource that we want to serve, which is index dot HTML in public.
+2:09
+Okay.
+2:09
+Plenty for you to think about.
+2:11
+Go ahead and start the challenges right now.
+2:15
+Okay.
+2:15
+Hopefully, you managed to get those challenges sorted.
+2:17
+Congratulations if you did.
+2:19
+Challenges one and three, not too bad, but a fair amount to do in challenge two.
+2:24
+Okay.
+2:24
+Let's kick off with challenge one.
+2:26
+So we want to take a const and it's double underscore dirname, and that is going to hold import dot meta dot dir name.
+2:35
+Then in serve static, let's take on the bigger challenge.
+2:38
+So we want to create and export the function and that's going to take in the base directory as a parameter.
+2:44
+I'll just call it base d I r.
+2:47
+And then we need to build a path to index dot HTML and we're gonna save that to a const file path.
+2:52
+So to build that path, I need to import the node path module.
+2:57
+So let's import path from node colon path and we'll say path and then we need the join method to join the elements of the path together and the elements of the path will be the base directory and then just need to go to the public folder so we pass in the string public and then the name of the actual resource we're aiming for which is index dot HTML.
+3:21
+Finally, for this challenge, we just need to log file path to the console.
+3:25
+And then challenge three in server dot j s, we need to import the serve static function and that is coming from the utils folder and we can call it right here and pass in the dir name and then let's hit save and open up the terminal and we are logging out our directory name right there.
+3:45
+We're actually logging out twice but that's because I hit save twice.
+3:48
+So that's a really important step.
+3:50
+We now have a reliable path to the resource we want to serve.
+3:53
+What we need to do next is find out how we can read that resource and then send it to the client.
