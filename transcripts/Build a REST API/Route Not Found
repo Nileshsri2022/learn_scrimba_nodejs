@@ -1,0 +1,52 @@
+
+Transcript
+0:00
+At the moment, we're walking down a happy path where users always behave predictably.
+0:05
+We are only covering one scenario slash API, and we're assuming that that is the request our client has made.
+0:12
+We need to cover what happens when they ask for something that we don't offer.
+0:16
+I've added an else on the end here and typed you out a challenge.
+0:20
+So if the client tries to access a route that isn't covered by the above, I e slash API, send this object.
+0:26
+And I've just put an object here with two properties, an error and a message, not found, and the requested route does not exist.
+0:33
+And also, when you do this, think, what else do we need to send along with this piece of data?
+0:39
+You might need to do a little bit of research there, but I'll leave you now to figure that out.
+0:44
+Okay.
+0:45
+Hopefully, you got that working and you figured out everything we need to send.
+0:49
+It's a lot of repetition from what we've got going on here.
+0:51
+I'm not going to copy and paste it though.
+0:53
+Let's say res dot set header and that will be exactly the same.
+0:58
+We'll set the content type to application slash JSON and the status code, well this is going to be a not found so we can set that to four zero four and if you come from front end dev it's quite nice to be the person giving out the four zero four rather than receiving it.
+1:15
+Finally we just need to send our data so it's res dot end and we need to use JSON dot stringify and pass in this object.
+1:24
+Let's save that and over here we'll just test.
+1:27
+I'll hit send that gets us all of our data because we're hitting slash API.
+1:32
+Let's mess this up.
+1:33
+Let's say APS for example and we get error not found the requested route does not exist and it looks like we're getting a four zero four here and if we check the headers indeed we are.
+1:44
+Okay so a bit more progress has been made.
+1:47
+Now if I delete the challenge text even in these twenty or so lines of code we can already see some repetition going on.
+1:54
+And we're going to deal with that later as a refactor, but I just wanted to acknowledge quickly that I have noticed that fact and we will do something about it.
+2:01
+But first, let's get the functionality working.
+2:05
+Next up for our API, we want users to be able to get data just for a specific continent.
+2:12
+So we need to work on some path parameters to do that, and we'll look at that very quickly in the next scrim.
