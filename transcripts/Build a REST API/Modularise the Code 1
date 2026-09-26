@@ -1,0 +1,86 @@
+
+Transcript
+0:00
+I'm feeling like we've got a little bit tied up in all of our code.
+0:03
+It's not that this file is that big.
+0:05
+It's more that it's very repetitive, and that's kind of annoying me.
+0:09
+So I've set you a challenge.
+0:11
+I want you to create a utility function to make this code drier, and I'm sure you've heard the acronym dry do not repeat yourself.
+0:19
+Well I basically want you to deal with the repetitive code that we've got going on here.
+0:24
+I want you to abstract it away.
+0:26
+I've created a utils folder right here.
+0:28
+There's nothing in it at the moment.
+0:30
+You can put something in it, import it back into here, and then wire up that utility function.
+0:35
+Then delete any unnecessary code, and in fact, I'm going to add that as a challenge criterion.
+0:40
+And when you finish this challenge, the API should work exactly as it does now.
+0:45
+Okay.
+0:46
+I've left that pretty open.
+0:47
+I think you can figure this out.
+0:48
+Go ahead and get to work on it.
+0:50
+Take as long as you need, and I'll show you what I'm thinking in just a moment.
+0:55
+Okay.
+0:56
+So hopefully, you have tidied up this code base.
+0:58
+What I'm going to do is create a file in utils, and it's basically gonna handle all of this.
+1:04
+It's going to send the JSON, set the status code, set the header, and then I can just call it when I need it.
+1:10
+So I'm going to call this file send JSON response.
+1:14
+And to set it up I'm going to export a const so send JSON response is the name of the function and let's just think exactly what this function needs to do so I'm going to borrow all of this code and so that's what we need to think about the header, the status code and the JSON to send.
+1:32
+And of course, we need access to the response object.
+1:34
+So I'm thinking the response object had better be one parameter this function is expecting.
+1:39
+Another one should be a status code.
+1:42
+And thirdly, the actual data we want to send.
+1:44
+I think I'm going to call this the payload because that's a term that's quite widely used.
+1:48
+If you called it the body or just the data, that would also be absolutely fine.
+1:53
+I'm not going to worry about the content type because in this app, is always the same.
+1:57
+So all we need to do now then is replace this with the incoming variables.
+2:03
+So the status code will be the status code and the payload will be whatever we're sending and of course it's going to be JSON stringified in any case.
+2:11
+Okay.
+2:12
+That looks pretty good.
+2:13
+Let's take that function.
+2:14
+We'll save this file of course and import it over here and now we should be able to set about using it.
+2:22
+So right here let's call it and we can pass in the response object, the status code two hundred and the destinations and then we can delete all of this code and let's do the same down here.
+2:35
+So I'll just copy this line down but here we're sending the filtered data which arguably we should have called filtered destinations but I think filtered data is fine for now and we can delete all of that and again let's bring this down onto another line and then down here we're sending the response again this time it is four zero four and we have got this object that we want to send and let's just delete what we've got here and let's just give that a test before I tidy it up and it looks like it's working let's just break it and we're getting the error not found the requested route does not exist message so that is working just fine.
+3:12
+Let's just think about the spacing a little bit because I think I've actually made it more untidy than it was to start with And there we are.
+3:20
+That is our first refactor.
+3:22
+We've got one more piece of refactoring to do but I'm gonna tackle that in the next scrim.
+3:25
+scrim
