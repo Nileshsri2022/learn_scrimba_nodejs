@@ -1,0 +1,144 @@
+
+Transcript
+0:00
+At the moment, where we're making our fetch request, we are right at the top level.
+0:04
+That is pretty weird.
+0:06
+If Scrimba had an API, you wouldn't expect to find it right here at Scrimba dot com.
+0:12
+You would expect it to be somewhere like Scrimba dot com slash API.
+0:16
+That would be the base URL of the API, and then it would likely have endpoints like courses or topics.
+0:23
+And APIs often support query strings, so it might be something like slash API, and then you'd have the question mark to introduce the query string, and the topic the client is looking for is node, and the price that they want is free.
+0:36
+So we need to add some routing capability to this app.
+0:41
+And to do that, we need to know where the request is coming from, and we can find that information from the request object.
+0:47
+The request object gives us access to the incoming request, and it contains info such as the URL the client used, any headers that are being sent, any data which is being sent in the request, and importantly, it tells us the method the client is using, get, post, delete, etcetera.
+1:05
+All of this allows us to comprehend what the client is trying to achieve, what do they want to give us, and what do they want from us in return.
+1:12
+And the request object makes various properties and methods available to us.
+1:17
+And one we're going to use a lot is the URL property.
+1:20
+This holds the URL of the request, and therefore, it tells us what endpoint the client is trying to hit.
+1:26
+And we could just log that out really quickly.
+1:29
+And it's rec dot URL.
+1:31
+Let's save that.
+1:32
+And then if I hit send now and first, actually, I'm just gonna open up the runner and keep it open.
+1:37
+I'll hit send, and we log just a slash.
+1:41
+So we can see that that rec dot URL holds just the URL that comes after this base URL.
+1:48
+Let's make the URL a little bit longer.
+1:49
+We'll add slash API.
+1:51
+I'll hit send, and we're logging that out.
+1:53
+Let's add destinations, and there we are.
+1:56
+You get the idea.
+1:57
+So here is a challenge for you.
+2:00
+I want you to check the URL property on the rec object, only serve our string if it's slash API.
+2:06
+Okay.
+2:07
+Get to work on that.
+2:08
+And remember, this is just JavaScript we're writing here.
+2:11
+You know how to do this.
+2:13
+Okay.
+2:13
+So hopefully, you got that working without any problem.
+2:16
+Let's delete this console dot log.
+2:19
+I could have cut and pasted, but, hey, let's not be lazy.
+2:22
+So we're going to say if rec dot URL is triple equals to slash API, let's serve this string.
+2:30
+And let's delete the challenge text and give this a test.
+2:34
+So over here, we've got slash API slash destinations.
+2:37
+And in fact, let's just tidy up what we've got here before we start.
+2:41
+Okay.
+2:41
+I'll hit send.
+2:42
+We're not logging anything.
+2:44
+The response is completely empty, and that is because we've got slash API slash destinations.
+2:50
+We are checking if it's just slash API.
+2:53
+Let's do that now.
+2:54
+Oh, and it looks like we've glitched out a little bit here.
+2:56
+So I'm just gonna restart the runner.
+2:59
+There we are.
+3:00
+Now we can send slash API, and it works.
+3:03
+Back to anything else, I'll just put slash d, and it doesn't work.
+3:07
+Okay.
+3:08
+At the moment, we're assuming that a client is approaching our API purely to get some data, but we can't be sure of that.
+3:15
+We need to know what method the client was using.
+3:18
+Were they making a GET request, a POST request, a DELETE request, PUT, PATCH?
+3:24
+And actually, this is a non exhaustive list.
+3:26
+There are quite a few possibilities.
+3:28
+But luckily, the REC object has got a method property which will give us that info.
+3:34
+Let me just paste you in a new challenge.
+3:36
+And here it is.
+3:37
+Check the method property on the rec object only serve our string if it's get.
+3:42
+Go ahead and get to work on this.
+3:45
+Okay.
+3:45
+So we just need to add a little bit more to this conditional.
+3:49
+Let's say and rec dot method is triple equals to GET and it is important to use uppercase right here.
+3:58
+Let's save that and this should still work let's just go back to slash API we'll hit send and it does work.
+4:04
+We are making a GET request.
+4:06
+Okay.
+4:06
+We're making pretty good progress.
+4:08
+I think our next step should be to actually send some real data.
+4:11
+We are done with just sending silly strings.
+4:13
+That's not quite as simple as just chucking the data right in here.
+4:17
+We do need to think about it a little bit more than that, so let's come on to it in the next scrim.
