@@ -1,0 +1,64 @@
+
+Transcript
+0:00
+Okay.
+0:00
+So we had a very basic server which just served a single string, and I have maliciously deleted it and set you a challenge.
+0:08
+I want you to recreate our server so we send a string over HTTP when a GET request comes in, and you can test it right over here in the network widget.
+0:18
+I've put a whole bunch of prompts right here in hint dot m d.
+0:21
+They're pretty much pseudocode, so hopefully, can do this without going back to check the previous scrim, but you have got that option if necessary.
+0:29
+Okay.
+0:30
+Get to work on this.
+0:33
+Cool.
+0:33
+Congratulations if you got that working.
+0:36
+I'm just going to bring everything from hint dot m d over to server dot j s, And let's work through it.
+0:42
+So first, we need to store the server in a const, and we're going to use a new instance of HTTP's create server method.
+0:51
+And that method takes in a callback function with two parameters, the request object and the response object.
+0:56
+And of course, we shortened them to rec and res.
+0:59
+Let's just tidy up this pseudo code.
+1:01
+We don't need it anymore.
+1:02
+Now on the response object, let's access the end method, and we're just going to pass in the string to serve.
+1:09
+Now we need to take this server and access the listen method, and we need to give it two pieces of information, the port and a callback function.
+1:18
+Let's save that.
+1:19
+Open up the terminal, and our command is npm start.
+1:23
+It looks like the server's connected.
+1:25
+Let's test over here in the network tab.
+1:27
+We've already got the same URL, and there we are.
+1:30
+This is from the server, and we're getting our headers as well.
+1:33
+So everything is working perfectly.
+1:36
+Congratulations if you got that sorted.
+1:38
+This server we've got is not exactly the new Facebook.
+1:41
+That's probably a good thing.
+1:42
+No one needs a new Facebook.
+1:43
+This is a decent start.
+1:45
+We've got plenty more to do, but before we move on with the project, I want to dig a bit deeper into this code, make sure we understand it, and just explain a few options we have for sending data.
+1:55
+Let's do that in the next scrim.
