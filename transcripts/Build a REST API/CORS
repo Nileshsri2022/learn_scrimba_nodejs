@@ -1,0 +1,114 @@
+0:00
+If you deploy this API right now and invite people to start using it, it's not going to work.
+0:06
+Why?
+0:06
+Well, it comes down to something called same origin policy.
+0:10
+And by default, browsers enforce a same origin policy.
+0:14
+And this means that a request can only be made to the same protocol, domain, and port as the one serving the web page.
+0:22
+Okay.
+0:22
+There's quite a lot of words going on there.
+0:24
+I'm going to give you some diagrams to show you what I mean.
+0:27
+But firstly, let's just recap.
+0:28
+So the protocol is HTTP or HTTPS.
+0:33
+The domain is something like Scrimba dot com or mozilla dot org, and the port could be eight thousand or three thousand, for example.
+0:40
+Now those are important.
+0:41
+Let's see why.
+0:42
+In this diagram, we have got a server right here.
+0:45
+Its protocol is HTTP.
+0:48
+The domain is scrimba dot com and the port is three thousand.
+0:51
+The front end is using exactly the same.
+0:54
+Same protocol, same domain, same port.
+0:57
+And so those two can communicate.
+0:59
+The resources can be shared between them without any problem.
+1:02
+However, this front end is using a different domain.
+1:05
+Maybe maliciously, it wants access to our server's resources.
+1:09
+Well, that is blocked.
+1:10
+This is happening by default.
+1:12
+There is no need for the developer to do anything.
+1:15
+However, sometimes things get more complex and there is a need to override this.
+1:20
+And the mechanism that controls this is called cross origin resource sharing, commonly abbreviated to CORS.
+1:27
+Okay.
+1:27
+So we've got this straightforward case where there is no need for a developer to set any CORS policy.
+1:32
+We have got the protocol domain and port the same on the server and the front end.
+1:36
+Let's move on to an example which is a bit more complicated but quite common.
+1:41
+So we've got the server using HTTP, Scrimba dot com, and the port of three thousand.
+1:47
+The known front end, the front end that we want the server to work with is using the same protocol, the same domain, but a different port.
+1:55
+And this is actually quite common to host the front end separately from the back end.
+2:00
+Now in this case, you need to override the default and use CORS to allow these two to communicate and share resources.
+2:07
+But of course, you still want to leave any unknown front end blocked.
+2:12
+So this is one common use case where a developer would need to set cause.
+2:16
+Now let's move on to our API.
+2:18
+Our API is a public API.
+2:20
+We want to give access to everybody.
+2:23
+So over here, I've got various domains, various protocols, various ports, and all of them are being given access to our server wildhorizons dot com.
+2:33
+And that's because we want to share our resources with whoever is asking for them.
+2:37
+Let's see what code we need to write to do that.
+2:40
+And what we need to do is come to the utils folder and open up this send JSON response function because this is where we're setting the headers.
+2:47
+And we're actually going to set two more headers.
+2:50
+The first one we're going to add is called access control allow origin and we're going to set that to an asterisk and this asterisk is basically a wild card which says allow access from any origin.
+3:04
+The second one we're going to set is called access control allow methods.
+3:10
+And the method that we want to allow is the only one we're actually using in this app.
+3:14
+It is the get method.
+3:16
+And of course, could allow more if the app were more complex.
+3:19
+So what we're saying with these two lines of code is allow access from any domain using any port or any protocol as long as they're using the get method.
+3:28
+And that means they'll be able to access our API and consume our data.
+3:32
+Now working here in Scrimba it's not gonna make any difference.
+3:36
+But if you were to deploy this out there on the Internet, you need to add these two lines of code to make it work.
+3:41
+Okay.
+3:42
+We're at the end of the project.
+3:43
+Let's take one more scrim for the outro.
