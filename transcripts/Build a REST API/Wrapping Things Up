@@ -1,0 +1,52 @@
+
+Transcript
+0:00
+And you have done it.
+0:01
+Congratulations on finishing this first Node.
+0:05
+Js project.
+0:06
+We've really got stuck in to the HTTP core module.
+0:11
+We've created a server, sent status codes, set headers, handled requests and responses, filtered data, and extracted query params.
+0:21
+And along the way, we've had a chance to flex our JavaScript muscles.
+0:25
+And what we've studied is not just for building APIs, of course.
+0:28
+This stuff is the backbone of building servers with Node, and you're gonna be reusing a lot of these skills in future projects.
+0:35
+Perhaps you want some stretch goals?
+0:37
+Well, you could try gentler error handling.
+0:40
+What I mean by that is giving users more feedback when, for example, they try to use query parameters which don't exist or they use query parameters that do exist or they use query parameters or path parameters which potentially do exist.
+0:54
+But because we don't have any data matching their request at the moment we send them an empty array perhaps we could give them a little bit more explanation as to what has happened.
+1:03
+You could try handling post requests.
+1:05
+We haven't talked about that at all.
+1:06
+We are going to talk about it in future projects but you could allow a user to upload some data to our API.
+1:13
+If you do do that, I suggest that for now you just ignore authentication because that is a pretty big topic.
+1:19
+Although, of course, it's totally up to you.
+1:22
+You could allow, for example, a keyword search of the description property in the data, and you could go the whole hog, expand this API, and sell it.
+1:30
+Why not go ahead and make yourself some money?
+1:33
+And people do make money from APIs.
+1:35
+You probably need a whole load more data and perhaps a bit more of a unique selling proposition, but with some work, maybe you'd get there.
+1:43
+But whatever you do, sure you take some time to rest and consolidate what you've learned before moving on.
+1:49
+And I'll see you in the next project.
+1:51
+And if you're an early adopter of this course, you might be aware that we're launching the projects iteratively as they become available.
+1:59
+So that means that right now we're working hard on producing the next projects in these courses so hopefully they'll be with you very soon.
