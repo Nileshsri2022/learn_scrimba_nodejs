@@ -1,0 +1,150 @@
+
+Transcript
+0:00
+Let's take a quick look at the front end JavaScript in index dot JS.
+0:04
+I'm just gonna uncomment all of this code.
+0:07
+And what we can see here is that it's making a fetch request to slash API.
+0:11
+It's then taking the data and calling the render cards function.
+0:15
+We've got that function right here.
+0:17
+It's creating and rendering a card for each of our ghostly sightings, and that is what you can see right here, and that is what we're aiming to get in this scrim.
+0:26
+So, basically, we need to provide all of our data when a get request comes in through the slash API endpoint.
+0:34
+To help out with this, I'm going to create a new folder, and I'm calling it handlers.
+0:38
+And inside handlers, I'll create a file root handlers.
+0:42
+And this will handle both the GET and POST requests to slash API and each will have their own function.
+0:48
+So we're gonna have handle GET and handle POST.
+0:53
+But in this scrim, it's only handle GET we're going to be working with.
+0:57
+Let's head to server dot j s.
+1:00
+And before we embark on a challenge, there's a little bit of work I want to do.
+1:04
+I only want this code right here to execute now if a request comes in, which is not for slash API.
+1:11
+So slash API wants to get the data, everything else is going to get the front end static files.
+1:18
+So let's use if and I'm gonna check if rec dot URL dot starts with and I'll check if it starts with API and actually what we really want to know is if it does not start with API so let's use the exclamation mark to make this negative.
+1:35
+If that is the case we are going to await the serve static function call.
+1:40
+Now just as a safety net, we should return this line of code because we don't want any other code to execute after this line has executed.
+1:50
+Now in a moment, we're gonna create more conditional logic up here.
+1:53
+So I'm actually gonna change this to an else if.
+1:56
+And that brings us to the first part of your challenge.
+2:00
+I want you to set up a route for slash API, and then I want you to nest an if to check if the method is get.
+2:07
+And we're nesting this method check because later we'll get requests for post and they will also be on the slash API endpoint.
+2:15
+When a get request is received to slash API, I want you to use handle get to handle it.
+2:20
+And in root handlers, I've got the rest of the challenge.
+2:22
+I want you to export a function called handle get.
+2:26
+It should use get data to get the data.
+2:28
+It should stringify that data, and it should use send response to serve that content.
+2:34
+Once you're done, you can open the browser and load the sightings page to see if it works.
+2:38
+And the sightings page is this one right here where it says read.
+2:42
+Okay.
+2:43
+Let's head back to server dot j s, and you can take all of the time you need and get to work on this challenge.
+2:51
+Okay.
+2:51
+Congratulations if you got that working.
+2:54
+I'm pretty confident you managed to do this.
+2:56
+Okay.
+2:57
+This first part shouldn't be too hard.
+2:58
+We've done quite a lot of this by now.
+3:00
+So I'm gonna say if, and we're gonna check if rec dot URL is triple equals to slash API.
+3:08
+If it is, we want to nest a second if to check the method.
+3:13
+So rec dot method and we're checking to see if that is triple equals to get.
+3:19
+If so, we want to return a function call to handle get and even though we haven't created handle get yet, I think we can make a couple of assumptions.
+3:30
+Firstly, handle get is gonna be working with the response.
+3:33
+So let's pass it the response.
+3:36
+And secondly, we know it's gonna be using get data.
+3:39
+That's an asynchronous process.
+3:41
+So we had better await this function call.
+3:44
+Oh, and let's import it quickly.
+3:47
+And when we hit save, we will surely get an error because we haven't created handle get yet.
+3:52
+Let's do that now.
+3:53
+So we can take the handle get function.
+3:56
+Let's just uncomment that.
+3:57
+And we're going to export this function and it's going to be an async function.
+4:03
+What does it need to do?
+4:05
+It needs to use get data.
+4:06
+So let's import get data and to get to get data from this handlers folder we need to use two dots and then into utils and get data dot j s.
+4:18
+So now we'll say const data and we'll set that equals to get data and that's async so we need to await it.
+4:26
+Now we need to stringify that data so I'll say const content which is a bit of a generic name but I think it's gonna be fine and we'll say JSON dot stringify and we'll pass in our data.
+4:39
+And finally let's use send response again we need to import that and we need to pass it the response which we must remember to bring in as a parameter and also a status code of two hundred, a content type of application slash JSON and then pass in the content.
+4:59
+Okay.
+4:59
+That is looking pretty good.
+5:01
+Let's hit save and see what errors we get.
+5:04
+Everything seems to be working.
+5:05
+Let's go for read and we are getting our sightings and that is looking pretty good.
+5:11
+Oh and I notice here we have actually got one which I included as a test.
+5:15
+I'm gonna delete that quickly because we don't want that there.
+5:18
+Let's try that one more time.
+5:19
+That is better and you can also see that we're not displaying the full article in that front end JavaScript.
+5:26
+We have got right at the bottom handle card expand and collapse and that looks like it's working just fine.
+5:33
+So you can go ahead and read all of those in your own time.
+5:37
+Okay, pretty happy with that.
+5:38
+We're making great progress here.
+5:40
+Now is probably a pretty good time to take a break because the next thing we want to do is start handling post functionality so why not come back to that when you're feeling refreshed.
