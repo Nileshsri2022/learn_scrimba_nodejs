@@ -1,0 +1,156 @@
+
+Transcript
+0:00
+Let's give our users a choice.
+0:01
+They can either take the whole dataset like they're doing now or take specific destinations filtered by continent.
+0:08
+So if they want the whole dataset, they can use slash API.
+0:12
+And if they want a specific continent, they can use path parameters which look like this.
+0:17
+So from this, we know that we have to filter our data.
+0:20
+They're telling us to filter on continent and to only give them objects where the content property holds, in this case Africa.
+0:28
+And if the user puts in a continent that doesn't exist, they'll get nothing from us.
+0:32
+We have no time for bad geography.
+0:35
+But serious point actually, how much feedback you give to users who misuse endpoints is something you should give thought to when designing APIs.
+0:42
+Okay.
+0:42
+You actually know enough JavaScript to do this without too much help from me.
+0:46
+So let's go straight into a challenge.
+0:48
+I've just tidied things up a little bit at the bottom.
+0:51
+I've just broken this object up onto multiple lines to stop it spreading out across the page.
+0:55
+And I've also added this else if.
+0:58
+And this is where you're going to be writing some code.
+1:01
+This is your challenge.
+1:02
+Check if the URL starts with slash API slash continent.
+1:05
+And I've put here, is that a JavaScript method that allows you to check what a string starts with?
+1:10
+Good question.
+1:11
+Now if it does start with slash API slash continent, serve only items from that continent.
+1:17
+And again, I've given you a few prompts.
+1:19
+How can you get to what comes after the final slash?
+1:21
+And what method can you use to filter data?
+1:24
+Now if you need answers to those questions, I've given you more information in hint dot m d right here.
+1:29
+Only check that out if you need to.
+1:31
+The outcome we're looking for is that I could come here and I could put slash continent slash, say, Asia.
+1:38
+And in the response, I would only see objects where the continent property holds Asia.
+1:42
+Okay.
+1:42
+You can start writing code right here inside these parentheses, and I'll be back in just a moment to show you my solution.
+1:51
+Okay.
+1:51
+Congratulations if you got that sorted.
+1:53
+Quite a lot of JavaScript to write there.
+1:56
+So what do we need in this else if?
+1:58
+Well, first, we need to take rec dot URL, and we want to see if that starts with slash API slash continent and there is actually a JavaScript method especially for that.
+2:09
+It's the starts with method and then we can just pass in this string.
+2:13
+And we should also check that the method being used is the get method.
+2:16
+So I'm just gonna borrow this code from here.
+2:19
+And I didn't specifically tell you to check for the get method here, but hopefully you figured out that that would be the right thing to do.
+2:26
+After all, the user would be making a get request just like they were if they were going for slash API endpoint.
+2:32
+Okay.
+2:32
+Let's go into the body and we need to figure out what content it is that we need to filter on.
+2:38
+So I'll say const continent and we can get that from rec dot URL, but we need to split the URL.
+2:45
+So we're going to make that string into an array.
+2:48
+We want to split it on slashes and we want to take the final element which we can do with the pop method.
+2:54
+So now we should be able to log the continent And I will need to restart the server because when we didn't have any variable in here, of course, the server wasn't running.
+3:03
+It would have thrown an error.
+3:05
+So let's click run.
+3:07
+We'll open up the runner.
+3:08
+And if we hit send here, we are logging Asia down in the runner console.
+3:13
+So that is working.
+3:15
+Now we need to do some filtering.
+3:17
+I'll delete that console dot log and we could say const filtered data is what we get returned from taking destinations and calling the filter method.
+3:27
+We need to pass the filter method a callback.
+3:30
+So we'll take each destination and let's return the destination dot continent because if we look at the data it is just a continent property that we're using and let's check if that is triple equals to continent that we have right here.
+3:47
+Now we're almost done there but I think for good practice we should worry about casing here so I'm just going to call to lowercase and I'll do likewise on the end right here and that just makes sure we're not going to miss anything if for example the casing in the data is not consistent now it's not going to cause a problem.
+4:05
+Okay the last bit to do is pretty easy we just need to take all of this right here we'll bring it in and what we want to stringify is of course the filtered data.
+4:14
+Let's just do some formatting delete the challenge text and I think just space things out a little bit as well.
+4:21
+well.
+4:21
+And that is now just a little bit easier on the eye.
+4:24
+Most importantly of all though, let's test it.
+4:26
+There might be bugs.
+4:28
+So we're hoping to get everything in the continent of Asia.
+4:31
+Let's hit send.
+4:32
+I'm gonna check the response and it is looking pretty good.
+4:36
+We've got Asia there and Asia there.
+4:38
+Yep.
+4:39
+That is working just fine.
+4:41
+Let's just try one more and we are in Zambia, Africa.
+4:45
+Looking good.
+4:46
+So that filtering is working.
+4:48
+So congratulations.
+4:49
+Really great if you got that working.
+4:51
+As I said, it was quite a big challenge.
+4:53
+We have got some more big challenges coming up actually because we've got some refactoring to do to make our code more dry and we also want to give our users the option to use query parameters.
+5:03
+So when you're ready, let's move on.
+5:05
+on.
