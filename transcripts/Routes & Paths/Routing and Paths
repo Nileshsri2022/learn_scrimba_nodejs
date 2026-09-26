@@ -1,0 +1,154 @@
+
+Transcript
+0:00
+I'm building a website for a store selling classic tech, and it's going to look like this.
+0:05
+If you're twelve years old, you're probably like, what the heck is all this weird stuff?
+0:09
+Or maybe it reminds you of your grandma.
+0:12
+But if you're a bit older, this is just a trip down memory lane.
+0:16
+We've got the original Game Boy, floppy disks, actually back in fashion now to use as a business card or a coaster or something.
+0:23
+And of course, the ZX Spectrum, something I had when I was a kid and actually still have now.
+0:29
+Over here in this public folder, I have got everything that we need to serve that site in terms of front end code.
+0:36
+So we've got the HTML, CSS, and JavaScript, and also all of the images we need right here.
+0:42
+In server dot j s, I've got the basics of the server.
+0:45
+We're sending a status code, setting the content type, and res dot end is not actually sending anything at the moment.
+0:51
+So the big question for us is how can I serve my store?
+0:55
+And I just want to start off with index dot HTML.
+0:59
+Well, actually, there's quite a bit to do.
+1:01
+So let's take a look at a checklist.
+1:03
+Firstly, we need to identify what resources the client wants.
+1:07
+And that's pretty simple.
+1:08
+For now, we want to serve index dot HTML.
+1:12
+Next, we need to identify the path to that resource.
+1:14
+And of course, we know where it is.
+1:16
+We can see it right here.
+1:18
+But the app needs to know two pieces of information.
+1:21
+The current module's directory, I e the directory of the file holding the code which is being executed.
+1:27
+And to get this we need to investigate something called import dot meta which we'll come to in a moment and secondly we need to note the path to the resource we want to serve from this current directory we've identified and to get that we need to go into the path module.
+1:42
+Once we've done that, we need to read the resources that we want to serve using the FS or file system module, and then finally send those resources to the client.
+1:52
+And this involves figuring out what type of resource it is, whether it's JSON, JavaScript, HTML, CSS, etcetera.
+1:58
+And then we'll send it.
+1:59
+And we've already done that in the first project, so there's nothing too complex there.
+2:03
+Now there's way too much for one scrim here, and there's probably plenty going on here that you don't really understand yet.
+2:09
+That is absolutely fine.
+2:10
+We are going to start from the beginning.
+2:12
+We'll take it step by step, and everything will become clear as we go along.
+2:17
+So the first step is easy.
+2:18
+Identify what resource the client wants.
+2:20
+We know it's index.
+2:22
+Html.
+2:23
+For step two, we need to know where in our file tree the index.
+2:26
+Html file is and therefore the path that we need to get to it.
+2:31
+So we know the path to this file index dot HTML from server dot JS is likely to be something like that.
+2:40
+But if we were to hard code the file path, it would cause us no end of problems.
+2:45
+You'll know if you've ever switched operating system from, say, Windows to Mac or vice versa or perhaps to Linux that it can be a real pain to get your head around the different file system.
+2:54
+Well, on Scrimba, the file to a path might look something like this.
+2:59
+On Mac, it might look something like this.
+3:01
+And on Windows, it could look something like this.
+3:04
+Pretty similar to the Mac, but the forward slashes have become backslashes.
+3:08
+So if you download code with a hard coded file path and try to run it locally, well, if you're using a different operating system, that is going to fail.
+3:16
+The path to the resource you want to serve will not be correct.
+3:19
+And then imagine what happens if you're collaborating with colleagues and they're using a different operating system to you.
+3:25
+Also, what happens when you go to deploy the app?
+3:27
+That could be a different operating system again.
+3:30
+So what you need is a solution which is operating system agnostic.
+3:34
+And if you haven't come across the term agnostic used in tech before in this way, it means we need a solution which doesn't care which operating system it runs on.
+3:43
+Now to do this, we need a dynamic way of getting the directory of the module whose code is currently being executed.
+3:51
+And actually on our server at the moment, we've only got one module.
+3:54
+It is server dot JS.
+3:56
+And so what we need is a way of finding what directory server dot JS is in.
+4:01
+And we're going to find that information in import dot meta.
+4:05
+Import dot meta is an object specific to the modular JavaScript environment, and we are in the modular JavaScript environment.
+4:12
+We know that because in package dot JSON, we're setting type to module.
+4:17
+So what import dot meta does is it provides metadata about the current module.
+4:22
+As I said, server dot JS is our module.
+4:25
+So let's see what we can find out about it with import dot meta.
+4:29
+So I'm just gonna log it out.
+4:31
+Let's save that and we'll open up the console.
+4:33
+And what we've got here is an object with various properties in it, a URL, which looks like an absolute path.
+4:40
+We've got a file name and a directory name, some kind of method going on there.
+4:45
+I want to focus in on this directory name.
+4:47
+So it's import meta dot dirname and again we'll save and this right here is our directory name.
+4:55
+So this is the directory where our current module server dot j s is executing code.
+5:00
+Now if you're being old school and not working in modular JavaScript, Node makes this directory name available to you as a global variable without having to access it using import dot meta.
+5:12
+So in old school node, you can just say underscore underscore dirname and that will actually get you the directory name where you're currently executing code.
+5:21
+And to mimic that global variable, I'm going to keep this outside of our server and I'm actually going to declare it as its own right here and I'll keep the double underscore so we're keeping that global variable convention and that is going to hold import dot meta dot dirname.
+5:37
+So we're keeping it at the top of the scope so in this file it's available globally.
+5:42
+Okay that is a win because if we go back to our checklist we've identified the current modules directory and that is something we need but to do the next bit to get the path to the resource from this current directory well look, we're gonna run into the same problems of operating system specific syntax.
+6:00
+And while we might be able to make this work in Scrimba, it's not necessarily going to work when you deploy the app or try to run it locally.
+6:07
+So to get an operating system agnostic path to the resource we want to serve, we need to use a tool from the path module.
+6:14
+So let's look at that in the next scrim.
