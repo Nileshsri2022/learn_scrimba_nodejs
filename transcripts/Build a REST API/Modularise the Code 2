@@ -1,0 +1,174 @@
+
+Transcript
+0:00
+Before we do any more refactoring and code organization, we are going to add some functionality.
+0:04
+This is the easiest challenge ever, but the code you write will be slightly short lived because you will refactor it later in this scrim.
+0:12
+I want users to be able to use country as a path param.
+0:16
+So just like we're doing with continent, now I want users to be able to access data by saying country slash Spain, for example.
+0:23
+But if they say country slash Africa, we don't want to know them.
+0:27
+So there's your challenge.
+0:28
+Add an API slash country slash country name route.
+0:32
+And, of course, you can do that somewhere down here.
+0:34
+Such an easy challenge.
+0:36
+I'm going to leave you to figure it out.
+0:39
+Okay.
+0:40
+That really should have been a five second challenge.
+0:43
+Well, maybe not five seconds, but certainly pretty quick.
+0:46
+Let's take another else if and I'm literally copying all of that because now all we need to do is replace continent with country.
+0:53
+So we're gonna do it right here.
+0:55
+Let's update the name of this const and we want destination dot country to lowercase is triple equals to country to lowercase and no problem that we've got filter data here and here they're in separate code blocks.
+1:08
+Okay.
+1:09
+Let's test and see if it works.
+1:11
+So at the moment, we should be able to get the entire API.
+1:14
+Let's just check the API slash continent slash Africa is still working and it is.
+1:21
+And now let's go country slash Africa.
+1:24
+That gives us nothing of course and let's go for country slash Spain and actually I've said Spain I'm not convinced that there are any Spain destinations in our data so actually let's go with France.
+1:37
+India?
+1:38
+Yes.
+1:39
+There is something from India.
+1:41
+For a moment there, I thought I'd said it's the easiest challenge ever and then completely messed it up.
+1:45
+I know there is definitely some from India.
+1:47
+I think probably also China.
+1:49
+Yeah.
+1:50
+Okay.
+1:50
+So Spain and France, sorry.
+1:51
+You're just not cool enough to have some of the world's craziest destinations in your country.
+1:56
+No offense.
+1:57
+But India and China are good to know.
+1:59
+Okay.
+2:00
+So that is working.
+2:02
+Let's come on to the refactor.
+2:04
+And why do we need to refactor?
+2:05
+Well, obviously, we have got repetition right here.
+2:08
+So let me just update the challenge text.
+2:12
+Your challenge is to create a util function to filter data and then to wire it up and delete unneeded code.
+2:18
+So we've got the repetition here that we need to deal with and there are multiple ways of doing this, but I want you to think about clean easy to read code.
+2:26
+That's more important than clever complex but shorter code.
+2:30
+So I think it's good to be able to see our roots clearly here so just bear that in mind when you figure out how you think it's best to do this.
+2:38
+Okay you've got the UTools folder right here and get to work on that now.
+2:43
+Okay I really hope you managed to complete that challenge and no problem if your code is different to mine.
+2:49
+I am going to create a new file and I'm a bit wary of long file names but I think we do want to be descriptive here so I'm gonna call this get data by path params and that is quite long but I think it's really clear what that does and it starts with the verb get which shows we're gonna be returning something which indeed we are.
+3:06
+Okay.
+3:07
+So let's export const and it is get data IPath params and again let's think about what we need to do here.
+3:16
+So if we go back to server dot j s, all I really want to take over is this filtering.
+3:21
+So to do that I need to know the data, the location type, whether it's a country or a continent and the location name.
+3:29
+So let's go and do that next.
+3:31
+Oh and I need to remember to move this into utils.
+3:33
+Okay.
+3:34
+So it's data location pipe and location name.
+3:39
+Now let's bring over one example which we can edit as much as we need and we know this function wants to return something.
+3:47
+So let's start with the return keyword.
+3:49
+And what we want to return is the data, but we want it to be filtered.
+3:54
+So let's delete all of that, and we'll bring this up onto a new line.
+3:58
+So we're saying data dot filter, and then for each destination, we want to carry out this filter test.
+4:03
+So what we want to return is destination and then here we need location type and we can do that with bracket notation.
+4:13
+We're gonna keep to lowercase and then we're going to say location name to lowercase.
+4:18
+Might just create some space and do a bit of formatting in here to make it a little bit easier to read.
+4:23
+There we are.
+4:24
+Okay.
+4:24
+Let's save that and we are going to import it back into server.
+4:29
+Js and now we need to wire it up.
+4:32
+So this is the code we're targeting.
+4:33
+Let's just bring that onto a new line.
+4:35
+We'll take the function and what we need to pass in then is our data.
+4:40
+So we've got that as destinations, destinations, the location type which in this case is continent and we want to pass that in as a string and the location name which will be saved right here in this const and now we should be able to delete all of that code and let's just copy that down.
+4:58
+Likewise we're using destinations and this will be country and this will be also country coming from this const right here and we can delete all of this code.
+5:08
+Okay.
+5:09
+Now things are starting to look a little bit neater.
+5:11
+Let's just check that it works.
+5:13
+So we'll hit save.
+5:14
+I'll tidy up what we've got here.
+5:16
+Let's just delete everything and we'll go again with country slash China and it is working.
+5:21
+Let's try India and we'll go for a continent.
+5:25
+I'll go with Asia and I feel like we should also try Europe and yes, there are some cool destinations in Europe.
+5:32
+Okay.
+5:32
+We've made a ton of progress.
+5:34
+We've got a little bit more to do because I do want this API to be able to work with query parameters as well.
+5:40
+That's a whole different ballgame.
+5:41
+We'll come to that in the next scrim.
+5:43
+scrim.
