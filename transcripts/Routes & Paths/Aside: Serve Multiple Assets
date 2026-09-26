@@ -1,0 +1,140 @@
+
+Transcript
+0:00
+In order to serve multiple assets, need to make some changes.
+0:03
+We need to get the correct path to the asset, and we also need to set the correct content type.
+0:09
+And actually, it's this part which is the trickiest.
+0:11
+But firstly, let's work on getting the correct path to the resource.
+0:15
+Now to keep things neater, I'm going to set up another path and this is just gonna be a path to the public directory.
+0:22
+I'm gonna say const public directory and I'll use path dot join and I'm just going to take the first two elements from this path.
+0:32
+Okay.
+0:33
+So now we've got a stable path to public directory and I'm going to pass it in here.
+0:38
+The whole purpose of doing that is just to keep things neater because here we're gonna need to write some JavaScript to determine the correct path to the asset we want to serve.
+0:46
+Now you might be thinking we could just use rec dot URL and you'll partly be right.
+0:52
+Rec dot URL is going to be really helpful and it's going to get us inside the image folder because that path will be stored inside rec dot URL.
+1:01
+The problem comes with index dot HTML because when the browser requests index dot HTML rec dot URL is just a slash.
+1:10
+So we actually need a ternary here and let's just bring this down onto a new line and we'll say if rec dot URL triple equals slash we're gonna serve index dot HTML and if not we'll take rec dot URL.
+1:25
+Now if we hit save let's see what happens to the mini browser and that is interesting.
+1:30
+We get some images.
+1:31
+Let's click on about and we get the about page.
+1:34
+We can go back to the home page.
+1:36
+So everything is working apart from the CSS and that all comes down to the correct content type.
+1:43
+Interestingly the browser can cope okay with the images so even though we're sending the wrong content type we are forgiven.
+1:50
+The browser has the ability to do that but right now it's reading the CSS as a text slash HTML file and that's why it's not being interpreted as a stylesheet.
+2:01
+We need to do something about that and luckily there are some tools which will help because to get the correct content type we can use the extension on the file so dot CSS, dot HTML, dot PNG or what have you and the path module gives us a tool for doing exactly that.
+2:19
+So let's say const ext for extension and we'll say path dot ext name and we pass in our path to resource.
+2:28
+And let's just check that's working with a console dot log.
+2:31
+Now I'll save and open up the terminal and look we can see a list of all of the extensions that are being requested.
+2:39
+Okay.
+2:39
+That is pretty cool.
+2:40
+Now getting the content type from the extension is quite laborious and I'm gonna do it in a separate utility function.
+2:47
+So I'll create a utils folder and we'll have a new file here called get content type.
+2:54
+Let's export this function and this function is gonna take in an extension as a parameter and then somehow it is gonna return a content type to us.
+3:04
+Now rather than what you have me type out a ton of stuff, I'm just gonna paste in an object.
+3:10
+So this const types has got key value pairs.
+3:13
+The key is an extension.
+3:14
+The value is a content type or a MIME type.
+3:18
+So what we want to do is take the extension which is coming in and we can just return types and then we'll take that extension and let's just cover a few bases.
+3:28
+We're gonna call to lowercase just in case somebody mistakenly types a file extension with an uppercase letter and we're basically done but with one problem.
+3:37
+You might notice here we haven't included text slash HTML and I'm actually gonna put that right down here as the default option.
+3:46
+So if this is truthy I e with the extension name that's come in, we've identified something from types then it is that value that's gonna get returned.
+3:55
+If not, it's gonna return text slash HTML.
+3:59
+And we're doing it this way because we need this function to return something and it's generally thought that a browser will deal with an unknown file best if it passes it as HTML.
+4:08
+Now we've just seen that come unstuck with CSS, but that doesn't mean that that's always the case.
+4:14
+For example, when we were sending text slash HTML before, we did manage to serve the images just fine.
+4:20
+Okay.
+4:21
+Let's save this and import it into server dot JS, and we're going to use it right here.
+4:26
+So we'll say const content type equals get content type and we need to pass in the extension and we can delete that now and then let's put content type right here.
+4:39
+Okay.
+4:39
+The moment of truth.
+4:40
+I'll hit save and look.
+4:42
+We are serving Retro Tech properly.
+4:45
+And I think it is looking pretty cool.
+4:47
+We might just stretch it out and see the desktop version.
+4:50
+I think that's nicer.
+4:51
+There we are.
+4:52
+And we've got the about page and the home page.
+4:56
+Okay.
+4:56
+I'm pretty happy with that.
+4:57
+Now you might be thinking, well, with get content type, we could use a switch statement here.
+5:02
+Yep.
+5:02
+That's absolutely true.
+5:03
+Plenty of other ways of doing this, but I think this way is a little bit neater.
+5:08
+Anyhow, we have got Retro Tech served, so that is a win.
+5:12
+Now you know what you've got to do back in the main project.
+5:15
+I'm not gonna make you write out all of this.
+5:17
+That just seems like a bit of a waste of time to me.
+5:19
+If you were doing this in the real world, you would never write this out by hand.
+5:23
+You would find it somewhere online and actually you'd make this list even longer.
+5:27
+I've included some extensions here that we're not using in this app just with kind of reusability and scalability in mind.
+5:33
+So if this was a production app which could be going in all manner of directions in the future, this list could be pretty ginormous.
+5:40
+So do have a quick look at this code before we move on.
+5:43
+This is the bit you're gonna be recreating, and I'll see you back in the main project when you're ready.
