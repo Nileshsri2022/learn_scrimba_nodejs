@@ -1,0 +1,215 @@
+Transcript
+0:00
+Okay.
+0:00
+Let's go.
+0:01
+I am going to create a file called server dot j s.
+0:05
+And in server dot j s, let's just console dot log hello node.
+0:09
+And I'll save that.
+0:11
+And then to run it, we can open up the terminal.
+0:13
+We'll see that we're already in the project folder.
+0:16
+Scrimba does that for us under the hood.
+0:18
+And we can execute the code in this file by typing node and then the name of the file, which is server dot j s.
+0:26
+When I hit enter, we log hello node right here in the terminal.
+0:31
+So we are just writing regular vanilla JavaScript here and that is what is great about node.
+0:36
+It's not a language.
+0:37
+It's just an environment where we can write JavaScript and there are differences.
+0:41
+There's no browser so there's no DOM manipulation.
+0:44
+If we try to log out say the document, again I'll open up the terminal and to bring back my last terminal command I can use the up arrow.
+0:52
+I don't need to type it all out by hand Then I hit enter.
+0:56
+And in this case, we're gonna get an error.
+0:58
+That figures.
+0:59
+No DOM.
+1:00
+No document object.
+1:01
+Let's just put that back to how it was.
+1:04
+Again, save.
+1:05
+Open up the terminal.
+1:06
+Let's scroll to the bottom.
+1:07
+Use the up arrow to retrieve the last command, hit enter, and we're back in business logging out Hello Node.
+1:13
+So although we don't get access to the document, we do get access to gems such as the node REPL.
+1:19
+And REPL stands for read evaluate print loop, and it allows us to type JavaScript right here in the console.
+1:25
+We can enter it just by typing node and hitting enter.
+1:28
+And now let's say console dot log.
+1:31
+Hello from the terminal.
+1:33
+I'll hit enter, and that code executes.
+1:36
+We log out our string right here.
+1:37
+We've also got undefined.
+1:39
+That's just telling us that this line of code didn't return anything.
+1:42
+And I'm sure as you watch that, you're thinking, yay.
+1:45
+How cool is that?
+1:46
+I can write JavaScript in the terminal.
+1:49
+Yeah.
+1:49
+The novelty does actually wear off after just a few seconds.
+1:53
+And actually, at this black empty screen is starting to make me feel a bit depressed.
+1:57
+We don't want to be writing JavaScript in the terminal.
+2:00
+We want to create servers.
+2:01
+So let's start building something.
+2:03
+I'm going to exit the repo by clicking inside the terminal and hitting control c twice.
+2:09
+And control c is a great shortcut for stopping whatever is running in the terminal.
+2:13
+Okay.
+2:14
+At the heart of every Node.
+2:15
+Js project, we have got the package dot JSON file.
+2:19
+And package dot JSON is essential because it acts as the project's blueprint.
+2:23
+It contains the project's metadata like the name, version, author, and description, and it also simplifies collaboration by managing dependencies, and we'll talk more about dependencies later in the course, and also defining a start script.
+2:38
+This automates the task of actually running the app, and we're gonna see that in action really, really soon.
+2:45
+Package dot JSON is just a JSON file, so we could create a new file, call it package dot JSON, and manually type one by hand.
+2:52
+But luckily, Node gives us a tool, and using that tool is going to be your first challenge.
+2:57
+And to complete the challenge, you are going to need the terminal command npm init.
+3:02
+Init stands for initialize, and when you run this command, it's going to launch a utility which will build a package dot JSON file for us.
+3:10
+Let me just paste in your challenge text.
+3:12
+So create a package dot JSON file by typing npm in it in the terminal.
+3:17
+Now I've put here answer the questions using the info in project details dot m d, and that's because the tool is going to ask you for various pieces of information.
+3:26
+Some of these you will have to write answers to and others you can accept the default option.
+3:31
+In project details, I've given you all of the info you need and in plenty of cases I've just written default which means you can accept the default option and you do that just by hitting enter.
+3:42
+By the way, sometimes the default option will just be a blank space.
+3:45
+That is absolutely fine.
+3:47
+We do not need to answer every question.
+3:49
+Okay.
+3:50
+Npm init is your first terminal command.
+3:52
+Go ahead and tackle that challenge right now.
+3:56
+Okay.
+3:57
+So let's open up the terminal, and I need to type npm init.
+4:01
+When I hit enter, now the utility is running.
+4:04
+It's offering me a package name.
+4:06
+We want to call it wild horizons.
+4:09
+The version will accept the default.
+4:11
+The description I'm going to copy and paste right from here.
+4:14
+Entry point server dot j s is actually filled that in for us already, so I'll accept the default by hitting enter.
+4:20
+Test command, I'll hit enter to accept the default.
+4:22
+Git repository default.
+4:24
+Keywords default.
+4:25
+Author, hopefully you put your name.
+4:27
+I am gonna put my name and for license will accept the default.
+4:31
+Is this okay?
+4:32
+Yes.
+4:32
+It is.
+4:33
+And we have got our package dot JSON file right here.
+4:36
+A couple of things to point out here.
+4:38
+Firstly, we're not going to be using this test script, so I'm actually going to delete it.
+4:43
+Secondly, we did earlier mention something about a start script, and we appear to have one right here.
+4:49
+So let's just save this file.
+4:51
+And if we go back to server dot j s, I'm just gonna update this console dot log.
+4:56
+Let's save that and I'll open up the terminal.
+4:59
+So previously, we were running our code by saying node and then the name of our main file.
+5:04
+In this case, we've only got one JavaScript file server dot j s.
+5:08
+Now doing this is not ideal.
+5:10
+If we share our code to colleagues and collaborators, we don't want them to have to search around for the entry point to our app.
+5:17
+We should list it in package dot JSON.
+5:19
+And in fact that is exactly what we've got there.
+5:23
+This is what we were going to type in the terminal to start the app.
+5:26
+But now we've got the option of just using the word start.
+5:29
+So in the terminal instead of node server dot j s we can say npm start.
+5:35
+When I hit enter, we have a package dot json.
+5:38
+So I'm logging out the code that we've got right here in server dot j s by using this terminal command npm start.
+5:46
+So now we have a generic way of starting our project.
+5:50
+Okay.
+5:50
+Creating package dot JSON is just the first step.
+5:53
+Let's keep up the momentum, keep moving forwards.
+5:55
+Our task is to serve an API.
+5:57
+And to do that, we need to make use of one of Node's core modules, the HTTP module to be precise.
+6:03
+So let's start looking at that in the next scrim.
