@@ -1,0 +1,119 @@
+Transcript
+0:00
+The next step is to add some functionality so that users can use this form to upload their ghostly sightings.
+0:07
+We've got the front end code already.
+0:09
+We're scooping up the fields in the form right here, and then down here, we're making a post request.
+0:15
+And you're welcome to pause and look through this code, but it is standard front end request stuff, probably nothing you haven't seen before.
+0:22
+So let's go through the steps we need to take to add this upload functionality.
+0:26
+And, of course, firstly, we need to set up a route, So any incoming post request to slash API is gonna be handled by this handle post function, which we'll be creating a bit later.
+0:38
+And then there is quite a bit to do.
+0:41
+Firstly, we need to collect the incoming data.
+0:44
+We need to pass it.
+0:46
+We need to sanitize it to guard against malicious code.
+0:49
+Then we need to grab our existing data.
+0:52
+We need to add the new incoming data to that existing data.
+0:55
+And then we need to write the completed data back to the JSON file.
+0:59
+Now a lot of this we already know how to do.
+1:01
+We know how to pass data so that will be helpful.
+1:04
+We've got a function to get our existing data already down here in utils.
+1:08
+We've got get data and that will also pass the existing data for us and give us a regular JavaScript array to work with.
+1:15
+So getting our existing data is pretty easy and that also means that adding the new data to the existing data should be as easy as just pushing a new object to an array.
+1:25
+So mostly what we need to study is how to collect the incoming data and how to write data to the JSON file.
+1:32
+Sanitization is quite a big topic and we're gonna address it at the end when we've got everything else working.
+1:38
+The architecture is going to look like this.
+1:41
+In root handlers, we're gonna have this handle post function and that is going to make use of four utility functions.
+1:48
+Pass JSON body will collect and pass the incoming JSON.
+1:52
+Sanitize data to handle sanitization.
+1:54
+We're coming to that at the end.
+1:55
+Add new sighting.
+1:56
+We'll do the donkey work of adding the data to our dataset.
+1:59
+And then send response.
+2:01
+We'll send the response back to the client telling it that the data's been received and added or that something has gone wrong.
+2:07
+So to get us up and running, I've got a quick challenge for you.
+2:10
+It's in two parts.
+2:11
+The first part is in server dot j s, add a route for a post request to slash API.
+2:17
+And when a request comes in, pass the rec and the res to handle post.
+2:21
+And I'm gonna leave you to do all of the importing and exporting you need.
+2:25
+And then in root handlers, here's your challenge.
+2:28
+Create and export a function called handle post.
+2:30
+For now, that function can just log post request received.
+2:34
+When you're done, you can put some data in this form, hit submit, and check for your message in the console.
+2:40
+Okay.
+2:40
+Nothing too complex there.
+2:42
+I'll leave you to get to work on it.
+2:46
+Okay.
+2:46
+So we need to have a second if then right here.
+2:50
+So we're gonna check if rec dot method is triple equals to post.
+2:56
+And I'm actually thinking to make this an else if.
+2:59
+I think that's a bit clearer, although it's not really gonna make any difference.
+3:02
+Okay.
+3:03
+So when we get a post request to slash API, let's call the handle post function and we will pass in the rec and the res.
+3:11
+We can import it and then saving that will generate an error because we haven't yet created it, but we're gonna do that next.
+3:18
+So I'll just borrow this one.
+3:21
+We're gonna say export function handle post.
+3:25
+It's gonna take in the request and the response even though we're not using them yet and for now we're just gonna log post request received.
+3:34
+Okay.
+3:35
+Let's hit save.
+3:36
+I'm going to open up the console and we'll keep it open and let's scroll down and we'll just put a test post in here and let's hit submit and we're getting post request received.
+3:46
+So our sanity check is complete.
+3:48
+We've got this wired up ready to add the functionality.
+3:50
+So in the next Grimm, we can work on creating a utility function pass JSON body, which is gonna help us collect and pass the incoming data.
+3:59
+When you're ready for that, let's move on
