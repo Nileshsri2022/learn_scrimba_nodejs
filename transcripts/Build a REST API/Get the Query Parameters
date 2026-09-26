@@ -1,0 +1,146 @@
+
+Transcript
+0:00
+There was a lot of syntax in that last scrim, and I don't expect you to remember all of it.
+0:04
+So I've given you a ton of help for this challenge, and here is the challenge.
+0:08
+I want you to complete the two lines of code below, and I've put here hint dot m d for help.
+0:14
+That should really say for extra help because I've given you quite a bit of help right here and, of course, right here.
+0:20
+So these are the two lines of code you need to complete.
+0:23
+Go ahead and get to work on that.
+0:26
+Okay.
+0:26
+Hopefully, you got that working.
+0:28
+So let's take this first one.
+0:30
+We need to use the URL constructor, so we need the new keyword, and we're going to pass in the relative URL.
+0:37
+So that was rec dot URL and then the base URL we've got http colon slash slash and then we are going to use rec dot headers which get us all of the headers that come from the request and we will take the host because that will get us the base URL.
+0:55
+Okay and now from this URL object we need to extract the query parameters so we've got query object right here.
+1:02
+We are going to take the object class and the from entries method and we need to pass in this URL object and specifically we want to access the search params object which is oh and I've forgotten my dot which is on that URL object.
+1:19
+Let's save and see if it's worked.
+1:21
+So I'm going to open up the runner terminal and I'll click send and at the moment we're logging an empty object.
+1:27
+That looks promising.
+1:28
+Let's go ahead and add some query strings right here.
+1:32
+I'll hit send and we've got country India.
+1:35
+Let's use an ampersand to add one more.
+1:37
+I've put continent equals Asia.
+1:39
+I mean that's pretty silly of course India's in Asia but there we are now we know it is working.
+1:44
+Okay.
+1:45
+So how can we work this into our code?
+1:47
+How are we going to decide what data to send the clients?
+1:51
+Well my thinking is this.
+1:53
+Let's just delete the challenge text.
+1:55
+I'm thinking that we keep both of these routes as they are.
+1:58
+So the continent route and the country route, we're just going to leave them well alone.
+2:03
+They are working just fine.
+2:05
+What I want to do instead is more work in here.
+2:08
+I'm going to set up a let filtered destinations and I'll initialize that to our destinations.
+2:16
+And then we're actually going to serve filtered destinations.
+2:20
+So by default with the code inside this block here, we are now serving these filter destinations.
+2:25
+So now when a user hits the slash API endpoint, at the moment, we're storing our destinations in filter destinations and we're serving filtered destinations.
+2:34
+So if they don't use any query parameters, they are just going to get all of these destinations.
+2:40
+And if they do use query parameters, underneath here, we are going to update filtered destinations so it holds only the data they want.
+2:48
+So this is where we're going to be writing code in this next section.
+2:53
+So let's start with a sanity check.
+2:55
+I'm just going to bring this console dot log down inside here and let's just space this out a little bit more.
+3:01
+So what I want to see is what we actually log from this query object when we hit the API endpoint and when we add some query strings.
+3:09
+Let's just open up the runner once again.
+3:11
+I need to save the server and let's hit send and nothing actually happens in the terminal but look we're getting the not found requested route does not exist error right here in the network tool.
+3:22
+Let's just take this down to slash API and we'll hit send and there we're logging an empty object.
+3:28
+We add a query param and it doesn't matter what we use at this point we're just logging it and again we get that error.
+3:34
+Now the reason for this might be obvious to you but just pause for a second and try to figure out why is this console dot log right here not executing when we're using query strings.
+3:44
+Don't try to fix anything yet, just think.
+3:46
+Okay, Okay, hopefully you figured out that as soon as we use a query param this conditional is failing because rec dot URL is no longer API, it's API and then question mark and whatever the query param is.
+4:02
+So let me paste you a new challenge.
+4:04
+I want you to do a bit of detective work.
+4:07
+So this is your challenge and it refers to this condition right here.
+4:11
+So I've said have a look through the URL object and see if you can find a property which we can use instead of rec dot URL right here because we need something that will satisfy the condition regardless of whether query parameters are used or not.
+4:27
+So basically, we want this code inside this block to run whether it's slash API plus query params or just slash API.
+4:35
+So have a go at that and just find something which can replace rec dot URL right here.
+4:40
+And when you do this, free to use trial and error, try with query params and without and see what you can find.
+4:45
+Okay.
+4:47
+Okay.
+4:48
+Hopefully, you found that we can take the URL object and access the path name property from it.
+4:54
+Why?
+4:55
+Because the path name stays constant.
+4:57
+It strips the query strings away and just gives us the relative URL.
+5:01
+So whether we've used query strings or not, if we've used slash API, this code will execute.
+5:07
+And of course, if we've gone beyond that and used a path parameter, then this code will execute.
+5:13
+And if we've used something else, then this code down here will execute.
+5:17
+So that's the theory at least.
+5:19
+Let's give this a try.
+5:20
+So we'll save and again, let's hit send.
+5:23
+And now we're logging out the object with the name Tom.
+5:26
+Let's take that away and hit send and now we're logging an empty object.
+5:30
+Okay.
+5:31
+Now we have got that information where we need it.
+5:34
+Our next task is to update filter destinations so we only serve the data the client has requested.
+5:40
+We will come on to that in the next scrim.
