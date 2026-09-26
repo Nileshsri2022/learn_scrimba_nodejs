@@ -1,0 +1,108 @@
+
+Transcript
+0:00
+I want to add an event emitter to our app so that when a new sighting comes in, we create an alert which will notify ghost hunters that there is a sighting in a given location.
+0:09
+I've set up this function right here, create alerts.
+0:12
+This is a listener function for an event emitter, and for now, the alert is just this console dot log.
+0:18
+I've also created a new folder events, and in there, we've got sighting events dot j s, and I've imported event emitter from node, and I've also imported create alert, the listener function.
+0:30
+Now your challenge is in two parts.
+0:32
+Firstly, I want you to create and export a new instance of EventEmitter called sighting events, and then I want you to register the listener function when an event called sighting added is detected.
+0:44
+And so you can do all of that in this file.
+0:46
+The second part of your challenge is in route handler.
+0:49
+Here, I want you to import the event emitter you've created.
+0:52
+Obviously, you do that at the top of the file.
+0:54
+And then use it to emit a sighting added event, which is the event that will be detected by the code that you write right here when you do the second part of this challenge in sighting events dot j s.
+1:06
+Okay.
+1:06
+When you're doing that, just think what information does the listener function need and you can check out create alert dot j s and you'll get the answer pretty quickly.
+1:15
+And when you're done, you can add a new sighting to give it a test.
+1:18
+Now to help you out with the syntax, I've just put all of the code from the previous scrim in hint dot m d so you can check that out if you need to.
+1:26
+Really, there's just four lines of code you need to complete this challenge.
+1:29
+Two lines in this file and two lines in this file.
+1:33
+So go ahead and get to work.
+1:35
+Okay.
+1:36
+I really hope you completed that challenge and congratulations if you did.
+1:39
+Event emitters are so important.
+1:42
+Let's start off by creating a new instance of the event emitter.
+1:46
+So I'll say const citing events and that will hold a new instance of event emitter And we do need to remember to export this const.
+1:56
+Okay.
+1:56
+Next, we need to register the listener function and we're gonna do that with an event called sighting added.
+2:02
+So we'll take sighting events.
+2:04
+We'll use the on method and we're saying on sighting added.
+2:08
+That's the event we're listening out for.
+2:10
+We want to use this function create alert.
+2:13
+Okay.
+2:14
+We're done here.
+2:14
+Let's save that, and we'll head over to root handler dot j s.
+2:18
+And the first thing we need to do here is import our event emitter.
+2:22
+So let's say import and we exported it as sighting events and that's coming from the events folder and sighting events dot j s.
+2:35
+Now we need to use it to omit a sighting added event.
+2:39
+So let's take it.
+2:40
+I'm right here just after we add a new sighting so we know we've got a new sighting at this point and anyway we're inside a try catch.
+2:47
+So we know we've got a new sighting at this point.
+2:50
+We'll call the emit method.
+2:51
+So this is where we're actually going to emit the event.
+2:54
+The event is sighting added and here we can pass in anything that the listener function needs.
+3:01
+If we check out create alert, it's expecting a sighting and we've got the sighting right here as sanitized body.
+3:08
+So let's just pass that in right there.
+3:11
+Okay.
+3:12
+We should be done.
+3:13
+Let's open up the console.
+3:14
+We're not getting any errors.
+3:16
+I'll keep the console open and we'll go for upload.
+3:21
+So we've got a pretty implausible sighting of the invisible man.
+3:25
+Let's just go ahead and submit that one.
+3:27
+Seems to have worked because look, send alert to ghost hunters in Glasgow, Scotland.
+3:32
+So we're getting the location right through to this function and logging it successfully.
+3:37
+Okay in the next Grimm we're gonna take a look at server sent events and another really useful tool when you're ready for that let's move on.
