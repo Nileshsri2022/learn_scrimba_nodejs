@@ -1,0 +1,130 @@
+0:00
+In this scrim, we're going to look at how we can add query parameter functionality to our API.
+0:04
+So a query string is something like this.
+0:07
+After we have slash API, we have a question mark which introduces the query string, then we have the first key value pair, and then an ampersand introduces the second parameter and again we have a key value pair.
+0:21
+So in the use case of an API like our project, a client is telling us what they want and it might help to read this as an instruction bring us data where the name is Tom and the country is the UK.
+0:31
+But of course clients can send anything in query parameters it's not by any means limited to instructing us on how to filter data.
+0:39
+The big question though is this how do we go from having a query parameter in a URL to being able to use the data from the query parameter in our app?
+0:49
+And as JavaScript developers, what is the natural way for us to use data that comes in these key value pairs?
+0:55
+Well, of course, the answer is the object.
+0:58
+So what we want to do is go from this query string to an object like this and that is what we're going to look at in this scrim.
+1:07
+Right here, I've set up a real bare bones server just like the one we made back at the very beginning.
+1:12
+We're not actually even serving any data.
+1:15
+Now we know we can get the URL that's being used in this get request from rec dot URL and I'm logging it out right here.
+1:22
+Let's just see that in action.
+1:24
+There we're getting slash API down in the console.
+1:26
+Let's add in some query params.
+1:28
+So it is the question mark and then name equals Tom and country equals UK.
+1:36
+And let's send that and there we are we're logging the relative URL right there so everything after the slash including these query parameters name equals Tom country equals UK.
+1:46
+So what should we do next?
+1:48
+I suppose we could write some JavaScript spaghetti perhaps throw in some and get these query parameters into an object.
+1:55
+But luckily, Node has got some tools which will help us do it more easily.
+2:00
+That said, it is still a bit of a process.
+2:03
+Let me show you what I mean.
+2:05
+First up, I'm going to type a line of code right here and then I'll talk us through it.
+2:12
+Okay.
+2:12
+So what the heck is going on here?
+2:14
+Well, we're using the new keyword and that is because URL right here is a constructor.
+2:19
+This is the URL constructor and it's going to give us a URL object and I've just called this const URL object.
+2:26
+It can take in two parameters.
+2:28
+The first is the URL and what we're passing in here with rec dot URL is the relative URL that we can see down here so everything after the slash inclusive of the slash.
+2:39
+But to be able to provide us with what we need, the URL constructor needs the base URL as well so that is what we can see before the slash.
+2:48
+In this case it's localhost colon eight thousand with http colon slash slash of course.
+2:54
+So we've hard coded that part here but to get the rest we've used rec dot headers dot host.
+3:00
+So what is rec dot headers?
+3:02
+Well, why don't we quickly log it out and see.
+3:05
+I'll save that and then send a request and rec dot headers.
+3:08
+Let's just make this a little bit bigger.
+3:11
+What rec dot headers is then is an object which holds all incoming request headers as key value pairs and under host which is what we're using right here we've got localhost eight thousand which is exactly what we've got here.
+3:26
+So by saying rec dot headers dot host we're getting access to the base URL and the URL constructor can put this information together and give us a full URL object which is what we need.
+3:37
+Now if we were just to hard code the base URL in here before long the app would break because the base URL can change depending on where you're developing or deploying.
+3:46
+Note that includes the port.
+3:48
+So that is why we need to get this information dynamically.
+3:51
+And that's why we need this line of code slightly crazy though it seems.
+3:56
+Okay.
+3:56
+Now the magic is gonna happen.
+3:58
+The URL object we've created has got all of the info that we need.
+4:02
+Let's just log it out and again I'll send a request and this is the URL object.
+4:07
+The important bit is right down here.
+4:09
+We've got search params URL search params name Tom country UK.
+4:15
+Now this is almost exactly what we need but not quite.
+4:18
+What are these strange arrow things going on here?
+4:21
+This is a pretty weird object and okay that's not a technical term but this URL object is not quite the object we want it to be So let's create a regular JavaScript object from this object.
+4:32
+So we need another line of JavaScript.
+4:34
+We're gonna say const and we'll call this query object and we're going to take the object constructor and use the static from entries method and if we pass in this object down here and we can get to that by saying URL object dot search params and now let's log out the query object.
+4:54
+I'll hit save.
+4:55
+Let's just change this to say country France and name Marcel and I will have to rerun the server at this point.
+5:03
+I'll hit send and there we are.
+5:05
+We've got an object with name Marcel country France.
+5:08
+You might be thinking that it seems nuts to have to do all of that just to get some query parameters.
+5:13
+It's overly complex with horrible verbose code.
+5:16
+Well, the good news is that the express framework abstracts this away and makes it really, really simple.
+5:22
+But in vanilla node, this is what we have to do.
+5:25
+And we are going to be recreating this in a challenge.
+5:28
+Don't worry.
+5:29
+I won't be expecting you to remember all of this syntax.
+5:32
+So when you're ready, let's start the process of getting query parameters to work in our API.
