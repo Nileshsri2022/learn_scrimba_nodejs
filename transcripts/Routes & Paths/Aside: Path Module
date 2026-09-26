@@ -1,0 +1,169 @@
+Transcript
+0:00
+Let's talk about paths and the path module.
+0:03
+But first, we need to know about something important.
+0:06
+I want to introduce you to the current working directory.
+0:09
+Now the current working directory is the folder you're in when you run your Node.
+0:14
+Js application.
+0:15
+And of course we typically do that with a command like node server dot js.
+0:19
+Remember that's the command that Scrimba is running under the hood and we saw it right at the beginning of this course.
+0:25
+If we need to know what our current working directory is we can access it like this.
+0:30
+We just say process dot c w d and give it parentheses and let's hit save.
+0:36
+And when we open up the terminal, we see we've got it right here, home projects and then our project folder.
+0:42
+So this basically tells us from which folder we launched our Node application.
+0:47
+Now in our project, we'll always be running Node from this location, but theoretically in complex deployments that could change and therefore the current working directory could change and so it's important to be aware of the current working directory and how it could affect the paths we create.
+1:02
+We'll be talking about that more as we go deeper into paths and that is why I just wanted to ground you in this knowledge about the current working directory so you know what it is when we refer to it later.
+1:13
+It's nothing amazingly complex.
+1:14
+It's just the folder from where we launched our Node application.
+1:18
+Okay.
+1:18
+Let's talk about paths and I want to look at the two kinds of path that we're going to see in our project.
+1:24
+We're gonna start off with the absolute path.
+1:26
+An absolute path shows the full location of a file or folder in the system where your code is running, and that can be on your laptop or on a remote server.
+1:35
+It doesn't matter.
+1:36
+Absolute paths are always the same no matter where you run your main script from.
+1:41
+So server dot j s in our case, and we've just seen where we run that.
+1:45
+That is in the current working directory, and that means that absolute paths are independent of the current working directory.
+1:52
+So they're really safe solid paths as long as your file structure doesn't change.
+1:57
+An example of an absolute path would be something like this.
+2:00
+And as we mentioned in a previous scrim, we don't want to hard code these, but we can generate them safely with some help from import dot meta dot dirname and with the path module as well.
+2:11
+Okay.
+2:11
+Let's talk about relative paths.
+2:13
+So a relative path will be relative to the file it appears in.
+2:17
+It will often include a dot or a period for the current folder or two dots to move up a folder for example and we often see that in import statements which look something like this.
+2:27
+I'm sure you've seen enough of them to know that.
+2:30
+Now things get a little bit more complicated when we come into relative paths created with the path module because relative paths created with path module start from the current working directory.
+2:41
+They're not relative to the path where they're being used.
+2:44
+Therefore they are affected by changes to the current working directory and that is something that we're not going to be doing in this app.
+2:51
+That does mean that they're not as safe as absolute paths but it does sometimes mean they're more flexible and that can be useful.
+2:58
+So the important thing to remember is that whenever we make a relative path with the path module that path will be relative to the current working directory and not the location of the file and that is why understanding the current working directory was so important.
+3:13
+Okay let's actually dive in to the path module.
+3:16
+So Node's built in path module helps us work with file and directory paths and its most important uses to us in this app are going to be to join path elements to create one path absolute or relative which will work on any supported operating system.
+3:30
+We'll also use path module to extract file names and extensions and you're gonna see that later in this project.
+3:37
+Okay let's dive into some code.
+3:40
+Okay so we're back here with RetroTeX and the dir name that we've got right here is already an absolute path to the folder holding server dot j s.
+3:49
+I want to create a path to index dot HTML.
+3:52
+We're gonna create an absolute path because we want it to be really solid for our HTML files and we're gonna do that using the path module.
+4:00
+So let's import it and I'm going to delete this line of code.
+4:04
+We won't be using that anymore and then inside our server I'm gonna set up a const path to resource and then we're gonna take the path module and we're gonna call the join method.
+4:15
+And this method is not the same as the array dot join method that you might well know from front end JavaScript.
+4:21
+Paths join method specifically joins file path segments into one consistent operating system safe string.
+4:28
+So path dot join and then we pass in the elements we need.
+4:33
+So in this case, we're gonna pass in the dir name and as we're heading for index dot HTML, we need to pass in public.
+4:39
+That goes in as a string and then finally the file name index dot HTML.
+4:45
+So here dir name is the absolute path to the folder containing server dot j s and then the strings we pass in here will make up the rest of the file path to the resource we're looking for.
+4:55
+Okay.
+4:55
+When I save that and then to actually make this code execute, we need to open up the mini browser and now we can have a look in the terminal and here we have got the path to our resource And this is a rock solid absolute path to our file and of course the file structure we've got here cannot change but that does not mean we need to execute this code only in server dot j s.
+5:17
+In the next grim we're gonna pass dirname as a parameter to a function in another file and that is gonna work just fine.
+5:23
+Now let's do a comparison with a relative path.
+5:26
+I'm just going to copy this down onto another line and let's update the names.
+5:31
+Okay.
+5:31
+And we can make this a relative path just by deleting the absolute path we've got coming in with dername.
+5:37
+Let's hit save.
+5:39
+Open up the terminal and we can see that really clearly we've got the absolute path and the relative path.
+5:45
+And both of these would work but for serving our HTML, we are gonna favor the absolute path for its stability.
+5:52
+But later in the project, we will use a relative path.
+5:56
+Let me show you why quickly.
+5:57
+I'm just gonna create a utilities folder and I'll create a file called test path.
+6:03
+I'll import path and let's export a function and we'll set up a path here and this path is gonna be exactly the same as the path we created here.
+6:13
+So we're just gonna pass in public and index dot HTML and let's log this one out.
+6:19
+For the label, I'll just put test path.
+6:21
+Okay.
+6:21
+Let's save that and then we'll import it to server dot j s and we will call that one right here.
+6:27
+Let's hit save and open up the console.
+6:30
+Oh, and I've got a typo.
+6:31
+Try again.
+6:32
+Here we are.
+6:33
+Okay.
+6:33
+So we've got the absolute path, the relative path we've created right here and then test path which is exactly the same And that's because these relative paths are relative to the current working directory.
+6:45
+They don't care where the code is being executed.
+6:48
+So I can include paths like this in my code anywhere in my app with predictable results as long as the current working directory remains consistent, which it's going to in this project.
+6:59
+Now I could create an absolute path in here.
+7:02
+For example, I could pass in the name as a parameter, pick it up here and pass it in.
+7:08
+Now of course we should change this and I'll save and now our test path is exactly the same as the absolute path we got from server dot j s and this is absolutely fine when you've got a utility function you just want to call from server dot j s and that's actually the first thing we'll be doing in our project.
+7:24
+But if you've got a file that you want to use in multiple places, possibly called from various other utility functions, a relative path just like this is going to be much easier to deal with and we will see an example of that later in the course.
+7:38
+Okay.
+7:38
+That was just a little experiment.
+7:40
+Take a good look at this code because in the next grim, you're going to have a challenge to recreate it.
