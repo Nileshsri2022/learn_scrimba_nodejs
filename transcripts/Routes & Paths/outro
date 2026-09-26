@@ -1,0 +1,54 @@
+
+Transcript
+0:00
+Congratulations on reaching the end of this project.
+0:03
+Let's just recap what we covered.
+0:05
+So we looked at the file system module, and we used it to read and write to our JSON file.
+0:10
+We used the path module to create file and directory paths, which work across operating systems.
+0:16
+We serve static assets like our HTML, CSS, and JavaScript, as well as the images.
+0:21
+And we worked with a dependency.
+0:23
+We bought one in to do some sanitization so we could prevent malicious actors from implementing a cross site scripting attack.
+0:31
+Now it's always good to have some stretch goals, and there are a couple of loose ends you could tie up.
+0:35
+Firstly, we could do a little bit more with error handling.
+0:39
+Imagine if a client requested slash API slash x y zed.
+0:43
+Well, that URL starts with API.
+0:45
+So if we have a look at server dot j s, it's not gonna be picked up by this code right here because this is a route for anything which doesn't start slash API.
+0:54
+But likewise for this code to run, rec dot URL must be slash API only, not slash API slash something else.
+1:02
+So that kind of request is currently going unhandled and you could look into that.
+1:07
+And there's another hypothetical where a client requests slash API but uses a method which is not get or post.
+1:14
+In that case, this code here will execute rec dot URL will be slash API, but this if and if else will not pick it up because they're only working with get and post methods.
+1:26
+So it would be good if the client got a response telling them that methods other than get and post are not supported and serving them the appropriate error code.
+1:35
+So that is something for you to look into.
+1:38
+Also, you could add UIDs to incoming data and you could use a dependency to generate that UID.
+1:44
+Let me show you what I mean.
+1:46
+If we go to data and data dot JSON, the three sightings that I originally populated our data with each have a UID, a universally unique identifier.
+1:55
+But the ones that we uploaded did not have that because we didn't implement that functionality.
+2:00
+Doesn't matter at all in this app.
+2:02
+We're not using that identifier at all, but it is normal for data to have identifiers so you could bring in a dependency which generates UIDs whenever you need them and you could work that into the system so any new data uploaded gets its own UID.
+2:17
+And when you're done, remember to take a break and consolidate what you've learned by building something even if it's only something small.
+2:25
+And then when you're ready, head on to the next project.
