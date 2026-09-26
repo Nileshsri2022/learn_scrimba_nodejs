@@ -1,0 +1,208 @@
+
+Transcript
+0:00
+Our ghost site is pretty cool, but word has got out that our latest funding round has raised two billion dollars, and now our competitors are out to hack us.
+0:10
+And that's a problem because we've left this huge security floor right here in our code.
+0:15
+Anyone can input malicious JavaScript, and we are gonna render it for them.
+0:20
+In story dot m d, I've got a ghost story with some malicious code.
+0:25
+Let's add it and see what happens.
+0:27
+So we can see that we've got this button with some JavaScript going on in here.
+0:31
+We've also got a b tag right here.
+0:34
+Let's hit submit.
+0:36
+It says it was submitted.
+0:38
+Let's view it.
+0:39
+And if we scroll down, look what we've got.
+0:42
+We've got this click me button.
+0:44
+I'm just gonna open up the terminal and let's look at the browser console.
+0:48
+When I hit click me, we log hacked straight from here.
+0:52
+Let's just open up read full article.
+0:54
+And look, we've also got this word here in bold.
+0:56
+That's gonna be important when you see the challenge.
+1:00
+Okay.
+1:00
+Let's close the terminal.
+1:01
+Close story dot m d.
+1:03
+And I'm just gonna go to the data and actually delete this one right here, which I just uploaded.
+1:09
+Right.
+1:10
+Now in server dot j s, we have a challenge.
+1:13
+And this is your last challenge, and I'm gonna let you figure things out on your own.
+1:18
+You know the score.
+1:19
+We've got user submitted data, and you need to sanitize it.
+1:22
+I've put this challenge right here in server dot j s not because that is where you're gonna write code, but because I want you to think about how to architecture this and where to bring it into the flow.
+1:33
+So do not write code in server dot j s.
+1:36
+Your challenge is to sanitize the incoming data.
+1:39
+I want you to allow the b tag and no attributes.
+1:43
+So only the b tag, no other HTML tag, and no attributes.
+1:48
+Then you can test it like we just did with the text we've got in story.
+1:52
+Md and I have given you a pretty generous hint.
+1:55
+Md file if you need some help.
+1:57
+Oh and lastly I have given you this slide if you want to refer to the docs for sanitize HTML just click right here on the screenshot.
+2:05
+It's gonna take you straight there.
+2:07
+Put your thinking cap on, take all the time you need, and get to work on this challenge.
+2:12
+Okay.
+2:13
+I really hope you got that working.
+2:15
+I'm gonna show you my way now.
+2:17
+But if your way was different, but you got it working, that is definitely a win.
+2:21
+There are multiple interpretations of this.
+2:24
+So the first thing I want to do is open up a new terminal, and we're going to do npm install sanitize hyphen HTML.
+2:34
+That has brought in the dependency.
+2:36
+Now I'm gonna set up a new utility function and I'm gonna call this sanitize input and we need to remember to export sanitize input.
+2:45
+Oh and we need to declare the function of course that will help and this function is gonna take in some data which will be the object which comes in from the user and is then passed to this function for sanitization.
+2:58
+Now I'm gonna set up a const sanitized data and I'll initialize that to an empty object.
+3:06
+So what we're gonna do here is we're gonna take this data, we're going to iterate over it and we're gonna sanitize each value if it's a string and pass it into this object.
+3:15
+Then we're gonna return sanitized data.
+3:18
+And in fact we might do that now because it's really easy to forget return statements.
+3:23
+Okay let's do some iteration so we're gonna say for and then we're gonna destructure key and value and because we're working with an object here we're gonna say of object dot entries and we'll pass in our data.
+3:39
+So now we're effectively iterating over an array.
+3:43
+Now we want to check if value is a string so let's say type of value and see if that is a string.
+3:50
+If it is we want to use sanitize HTML, which of course we need to import.
+3:55
+Let's do that next and we'll pass in the value.
+3:59
+And where do we want to store this?
+4:01
+Well, we've got this object waiting.
+4:04
+So let's say sanitize data.
+4:06
+We'll set up a key.
+4:08
+So now we're gonna have a key value pair.
+4:10
+And what we're doing then is we're recreating this object in sanitize data.
+4:14
+Now we know we want to allow a bold tag.
+4:16
+So let's open an object here.
+4:18
+We're gonna have allowed tags.
+4:22
+That's an array and we can just pass in b and we want allowed attributes.
+4:27
+That will be an object and we're gonna leave that empty because we don't want to allow any.
+4:31
+Now what should happen if this is not a string?
+4:35
+Well this function could be asked to deal with data types which are not strings.
+4:38
+It probably won't have to in our project but it could conceivably have to deal with timestamps, numbers, etc.
+4:45
+We're not going to worry about them so we'll say sanitized data, we'll create that key and we're just going to set that to the value so that value will be maintained.
+4:56
+Okay I think that's going to work but we're not going to know until we test So where are we gonna bring this in?
+5:01
+I'm thinking we need to go to root handlers and how about right here we've got past body returned from past JSON body.
+5:08
+How about we now say const sanitized body equals sanitize input and we pass in the passed body.
+5:18
+Okay.
+5:18
+I haven't forgotten we need to import this one.
+5:21
+But before we do that, let's just sort out what's happening next.
+5:24
+So now we've got sanitized body holding our sanitized input.
+5:28
+We need to update the code here so that is what's going to get added.
+5:32
+It's also what's going to appear in the response.
+5:35
+Okay.
+5:36
+Let's just import sanitize input from utils sanitize input.
+5:42
+We'll hit save.
+5:43
+Doesn't look like we're getting any errors.
+5:45
+Everything seems to be fine.
+5:47
+Okay.
+5:47
+Let's do some testing.
+5:48
+So we'll go to the upload page.
+5:50
+Let's go back to story dot m d.
+5:52
+There's the story including the malicious JavaScript and the b tag.
+5:57
+Let's hit submit.
+5:59
+It says it was uploaded.
+6:00
+Let's see if we can view it.
+6:02
+And look what we've got right here.
+6:03
+Click me exists.
+6:05
+The text itself survived, but there is no button to click.
+6:09
+If we read full article, we have allowed the b tag to survive.
+6:13
+So that is a great job.
+6:14
+If you got that working, you should be really, really happy with yourself.
+6:18
+And as I said before, if it's not exactly the same as my way, no problem.
+6:22
+Now we're done with the main functionality of our site, I want to add an extra section on events.
+6:27
+Events are really cool and really important.
+6:29
+That means we've got a couple more scrims to go.
+6:32
+Let's go and check them out.
