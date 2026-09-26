@@ -1,0 +1,118 @@
+
+Transcript
+0:00
+To create a server, we need nodes HTTP module.
+0:03
+And to import a core node module, we can use the import statement.
+0:08
+So we say import HTTP from and then in inverted commas HTTP.
+0:14
+Okay.
+0:14
+Let's hit save and we will open up a terminal and let's just use npm start to start our app.
+0:21
+And look we get an error straight away and if I scroll up to the top this is the important bit to load an ES module set type module in the package dot JSON or use the MJS extension.
+0:32
+Now it's telling us that because there are actually two ways that we can import modules in Node.
+0:38
+Js.
+0:38
+One technique you might have seen if you've done an older course is to use the require keyword, and this is the old common JS method which we won't be using in this course.
+0:48
+We will be using the ES modules approach, but that does mean we need to tell our app that we're working in modular JavaScript, And the easiest way to do that is in package dot JSON to add type and set that to module.
+1:01
+Okay.
+1:01
+Let's hit save back to server dot JS, and then we'll try once again in the terminal.
+1:06
+I'll use the up key to run npm start.
+1:10
+And there we are.
+1:10
+We've got it working, so we are up and running with the HTTP module.
+1:14
+Just before we move on, there's one more thing I want to point out.
+1:17
+It's best practice to include node colon and then the name of the module that you're trying to import when you're importing a core node module.
+1:27
+This tells the app that it is a node module that we're looking for, not a JavaScript module that we've created ourselves.
+1:33
+And that can be helpful because if this were a huge project with loads of our own JavaScript modules, without this, Node could waste time looking through files trying to find the right one.
+1:43
+So actually doing this can speed up performance and prevent errors in larger apps.
+1:48
+It's not gonna have a big effect on this project at all, but it's good practice and a good habit to get into.
+1:54
+Okay.
+1:55
+Let's dig a bit deeper into the HTTP module.
+1:58
+So this module allows Node.
+2:00
+Js to transfer data over the hypertext transfer protocol, and we use it to create servers, handle requests from clients, and provide responses to those requests.
+2:10
+Okay.
+2:11
+So to use it, we need to access one of its methods, and we're going to store that in a const.
+2:16
+So I'll say const server and I'll set that equals to HTTP dot create server and actually create server is the only method that we're going to be using from the HTTP module.
+2:28
+So we could actually extract it right here and then we could do away with the HTTP dot but I don't want to do that.
+2:35
+I think it's useful actually to remind us where it's coming from especially while we're learning so let's just keep things as they were.
+2:43
+Next we need to pass create server a callback function and I'm going to use an arrow function.
+2:48
+And this callback function takes in two parameters, the request, which we shorten to rec, and the response we shorten to res.
+2:55
+And when we're working with the HTTP module, it's these request and response objects that give us access to the request and response cycle.
+3:03
+And we're not gonna take a deep dive into the request and response cycle yet.
+3:07
+First, I want to get a server up and running, and then we can dig a little bit deeper into what's going on.
+3:12
+Now we just want to send something over HTTP so we're going to work with the response first and the response object exposes various methods to us and in this most basic example I'm just going to take one of them and it's called the end method.
+3:27
+So let's say res dot end, and we are going to talk about this code in more detail afterwards, and we will be taking a closer look at the response object.
+3:35
+But for now, I just want you to know that the end method sends data over HTTP and then ends the response.
+3:43
+So let's just put a string in here.
+3:45
+And that is a very simple server.
+3:47
+To use it, we need to specify a port, and I'm gonna go for eight thousand.
+3:52
+And we need to listen on that port.
+3:54
+And for that, HTTP gives us a listen method.
+3:57
+So let's say server dot listen.
+4:00
+We pass in the port and we can also pass in a callback that will execute when the server connects.
+4:06
+And to see if this is working, let's open up the network tool and then in the terminal we can start our app with npm start.
+4:13
+We've got server running on port eight thousand.
+4:16
+Here, we need to put in the URL and we need to give it the full form.
+4:20
+So that's http colon slash slash localhost and then the port which is eight thousand.
+4:27
+Okay.
+4:28
+Let's hit send and we get hello from the server.
+4:32
+So we are in business.
+4:33
+We have got a server.
+4:34
+It's a pretty bad server if you see what I did there.
+4:38
+This is definitely not the last bad tennis joke in the course, but what we have here is a server that doesn't do very much other than send one string over HTTP, but that is a promising start.
+4:50
+Now in the next scrim, I'm going to set you a challenge of rebuilding this code.
+4:54
+So take a good look at it and move on when you're ready for that challenge.
+4:57
+for that challenge.
