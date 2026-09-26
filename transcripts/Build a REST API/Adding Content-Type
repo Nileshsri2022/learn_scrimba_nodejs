@@ -1,0 +1,114 @@
+
+Transcript
+0:00
+When sending data, specifying the content type or MIME type is important.
+0:05
+And these are the common content types you will likely encounter as a developer.
+0:09
+Application slash JSON, text slash HTML, text slash CSS, application slash JavaScript, and there are, of course, others.
+0:18
+In fact, there are many others because we have to cover all of the image formats, the sound formats, the video formats.
+0:23
+So as you can imagine, there are a ton of these.
+0:26
+And I should say they loosely get called content types because that is how we present them when we're sending data, but strictly speaking they are MIME types.
+0:34
+Okay.
+0:35
+Let's take a quick look at an example that you'll probably recognize if you've been working at all on the front end.
+0:40
+So this is a fetch request, making a post request in this case.
+0:44
+What I want to focus in on is these headers because right here you can see we've got content type and you can note the hyphen and the uppercase first letters and we're setting that in this case to application JSON.
+0:58
+Guess what?
+0:58
+When working in the other direction on the back end, we should also specify the content type of the data we're sending.
+1:04
+And on the response object, we have got a method which allows us to do exactly that.
+1:09
+The method is called set header and instead of passing it an object like we would do here in front end code, see this is actually an object, we just need to pass it two strings.
+1:20
+The first string is literally the words content hyphen type with the uppercase first letters and the second string is the content type that you want to send.
+1:29
+So here is your challenge.
+1:31
+Access the set header method on the response object and pass in two strings to set the content type to application slash JSON.
+1:39
+And I've just put a reminder, watch out for casing.
+1:42
+And by the way, because of the assumptions that browsers and indeed our network tool make under the hood, we're not going to see any change in the output we get here.
+1:52
+Okay.
+1:52
+Hopefully, you managed to do that without too many problems.
+1:55
+So we wanna take the response object and access the set header method.
+2:00
+We pass set header two strings.
+2:03
+The first is content hyphen type and the second is application slash JSON.
+2:09
+And I've just got the wrong kind of inverted commas here.
+2:11
+There we are.
+2:12
+Now let's hit save, make a request.
+2:15
+So I'll press send and that is looking good.
+2:18
+Let's just check the response.
+2:19
+There is our data.
+2:20
+Okay.
+2:21
+The last thing for this scrim, the response object also has a status code property and that brings us to the second challenge.
+2:28
+I want you to access the status code property which again is on the response object and I want you to set it to two hundred and just to emphasize status code is a property not a method.
+2:39
+Okay.
+2:40
+Go ahead and do that.
+2:42
+Okay.
+2:42
+Dead simple.
+2:43
+So again we take the response object and we access status code and it's a property so we just set it equals to two hundred and again let's save and I'll hit send in the network tool and that is all looking good.
+2:57
+We can see the status here two hundred we could just change that to four hundred just for a laugh and there we are we get four hundred.
+3:04
+Now we don't want to be doing that So I'll just put that back to two hundred.
+3:07
+Okay.
+3:08
+So our server is now much better.
+3:10
+It's not as good as Serena.
+3:13
+Few servers are as good as Serena.
+3:15
+And have I stretched the tennis metaphor enough yet?
+3:17
+I don't think so.
+3:19
+But anyway, our server is getting much better.
+3:22
+We're sending stringified JSON.
+3:23
+We're setting the status code.
+3:25
+We're setting the headers.
+3:26
+Things are looking up.
+3:28
+Our API is still rather basic.
+3:30
+At the moment, you either want all of this data or you don't.
+3:33
+Those are the only choices you've got.
+3:35
+And also, we're only covering scenarios where everything works absolutely fine.
+3:40
+We have got no error handling, and I think that would be a good thing to work on next.
