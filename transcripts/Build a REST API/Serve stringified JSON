@@ -1,0 +1,114 @@
+
+Transcript
+0:00
+We need some data to serve.
+0:01
+As I was designing this course, I got into a bit of a discussion with myself about how best to handle the data we'll be using.
+0:07
+In the real world, you would likely be holding the data for your API either in a database, or if it were a small limited API, you would store it as JSON data within the app.
+0:19
+That presented me with two issues.
+0:22
+Firstly, we're not ready to go down the database rabbit hole yet.
+0:25
+And secondly, if we store raw JSON, then we have to use Node's file system module to read it.
+0:32
+The file system module is really important and it's really cool, and we will definitely be covering it in a later project.
+0:39
+But in this project, I really want to focus on routing and HTTP, and that means keeping things a bit simple.
+0:46
+So what I've done is this.
+0:48
+We're gonna have a kind of mock database.
+0:50
+I've stored the data right here in Data.
+0:52
+Js.
+0:53
+Here it is.
+0:54
+It's a regular JavaScript array of objects.
+0:57
+And then here in d b dot j s in the database folder, we've got this function, which is an async function as if we were making a request to a database.
+1:05
+That just adds a little more realism so you can get into the async mindset because accessing a database is an async process.
+1:13
+We are going to import this function wherever we need to access the data and that is going to mimic accessing the database.
+1:19
+And in fact, the first place we're going to need this is in server dot j s.
+1:23
+So I'm going to import it here for you.
+1:26
+And just to be clear, even though our data is stored here as a regular JavaScript array of objects, we are still serving it as a JSON string.
+1:34
+Remember the HTTP protocol demands we send a string, not an array of objects.
+1:39
+So using JSON dot stringify is definitely the way to go.
+1:42
+Okay.
+1:43
+It's time to serve our data and that brings us to a challenge.
+1:47
+I want you to store our data in a const destinations, and when a GET request is received to the slash API endpoint, send our JSON stringified data.
+1:56
+And just think, what changes will you need to make to get this to work?
+2:00
+I've deliberately left that a little bit open to give you a bit of a cognitive workout.
+2:05
+Just read any errors you get carefully, and you will be absolutely fine.
+2:09
+And just to be clear, you only need to write code here between lines six and eighteen inclusive.
+2:15
+You don't need to do anything else in this server dot j s file and you don't need to change anything in the other files that we've got over here.
+2:23
+Okay.
+2:23
+Get to work on that.
+2:25
+Okay.
+2:26
+Congratulations on getting that sorted.
+2:28
+Let's take a look.
+2:29
+So I am going to set up my const destinations and that's going to hold whatever is returned when we call this function.
+2:37
+Now I want to take the destinations and serve it right here and we know it needs to be in a JSON string format so it's JSON dot stringify and we pass in destinations and is this going to work?
+2:50
+Let's hit send and we're just getting an empty object there so something is not working and you probably spotted what it was over here in DB.
+2:58
+Js.
+2:59
+This is an async function so in server.
+3:02
+Js we need to await it and what happens when we await it?
+3:05
+Well we hit save, we try again, nothing happens this time.
+3:09
+Let's see what's going on in the runner and we have got an error.
+3:13
+Cannot use await outside an async function.
+3:16
+That is an easy one to fix.
+3:18
+This function right here, this callback, this needs to be an async function.
+3:23
+Okay.
+3:23
+Let's hit save and we'll try once more.
+3:26
+And there we are.
+3:27
+We have got our data.
+3:29
+That is pretty cool.
+3:30
+Congratulations on completing that challenge.
+3:32
+That is a pretty big milestone.
+3:34
+We have still got some ways to go, though, because we're doing something right now, which is bad practice.
+3:39
+We're serving up some data without specifying what type of data it is.
+3:44
+Let's see how we can remedy that in the next scrim.
