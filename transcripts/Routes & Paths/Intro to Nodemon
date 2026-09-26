@@ -1,0 +1,202 @@
+
+Transcript
+0:00
+So this is a scene you're hopefully familiar with by now.
+0:03
+You're developing an app, and each time you make a change to the code, you want to run the app to see how those changes look and feel.
+0:10
+So let's say right here, I want to pass in their name.
+0:13
+I hit save and the app reloads and we can see instantly that it's still working.
+0:18
+And that's happening because we're developing on Scrimba and Scrimba's runner is doing all of the heavy lifting for us.
+0:25
+And if we just have a quick look at this screenshot of the runner settings, we can see why we've got the install command and the run command node server dot j s.
+0:33
+Okay.
+0:34
+Bear with me while I just stop the app and switch off the runner.
+0:37
+Okay.
+0:38
+Now the server is stopped.
+0:39
+So if I try to refresh, the site is down.
+0:42
+We're getting a taste of life outside Scrimba.
+0:45
+Okay.
+0:45
+So how do we restart this app?
+0:48
+Well we can open up a terminal and we can use the same start command we were using in the runner so that's node server dot j s.
+0:54
+There we are.
+0:55
+We've got the site back.
+0:56
+We can stop the server with control c and because in the package dot JSON we have got a start script, we have also got the option to use npm start and that does exactly the same thing.
+1:08
+But what we should be aware of is that sometimes these start commands can be much more verbose and actually these manual ways of starting the app typing down here in the terminal can become very very tedious.
+1:21
+So what we need to do is speed up the iteration process I e how quickly we can edit, save, and see the results of our changes.
+1:30
+With that in mind, I want to take a look at something called hot reloading which is a super useful way of speeding up development.
+1:37
+Now hot reloading is a simple concept to get.
+1:39
+So instead of all of these manual restarts like we just saw in the terminal, what if every time we change our back end JavaScript, the process of stopping the app and restarting it happened automatically.
+1:50
+Well, NodeMon is a development tool that does exactly that.
+1:54
+You can think of NodeMon as being like a robot.
+1:57
+It's watching or monitoring your application and when it detects a change to the code, it hits the restart button.
+2:03
+Let's just see that again.
+2:05
+NodeMon is watching your code base when you make an edit and you hit save, NodeMon presses the restart button.
+2:11
+To be honest, I was pretty proud of that animation.
+2:14
+So hopefully you can see that NodeMon will make this edit, save, and see results process much much quicker.
+2:20
+And that saves us from constantly writing start commands down in the terminal.
+2:24
+And just to be clear, NodeMon is not part of Node.
+2:26
+Js itself.
+2:27
+It is an optional utility.
+2:30
+Now to use it, we need to install it.
+2:32
+So let's come back to the terminal and I'm gonna say npm install and then we'll do save dev and then the name of the package we want which is nodemon.
+2:43
+Now this saved dev flag tells NPM to install the package as a development dependency rather than as a regular dependency.
+2:51
+Let's hit enter and you'll see what I mean.
+2:53
+Dev dependencies has appeared right here and we have got our nodemon package in it.
+2:58
+So development dependencies are packages you only need during development and are not used in production.
+3:04
+So they get added to this dev dependency section of package dot JSON and are kept separate from these main dependencies like sanitize HTML which of course we want to use in production.
+3:14
+Oh, and one quick thing to show you, I could have done this less verbosely.
+3:17
+We have got a bit of shorthand here so I could have said npm install and then slash d to show that it's a development dependency and then the name of the package.
+3:28
+So this part with saving would happen automatically.
+3:32
+So there is a shorthand way of doing it.
+3:34
+Okay.
+3:34
+I'm not gonna hit enter because we've already got Nodemon installed but before we can use it we need to make some changes to scripts.
+3:41
+So we're going to leave the start script alone.
+3:44
+That will be used for production and deployment when we won't be using NodeMon.
+3:48
+So what we want to do is place a comma here and we'll set up a dev script.
+3:53
+Again, we want the colon and then between quotation marks we'll have our command.
+3:57
+So instead of saying node server dot j s, now we'll just say node one server dot j s.
+4:03
+Okay.
+4:03
+Let's save that.
+4:04
+We'll go back to the terminal and what are we gonna do now to start our app?
+4:09
+Well, we've got a couple of options.
+4:10
+We could use nodemon server dot j s which is exactly what we've just put right here in the dev script, but instead let's do it using NPM.
+4:20
+And so in the past we did NPM start, but for anything other than start and we want to use dev, we need to add run.
+4:28
+So it's actually gonna be npm run dev.
+4:32
+Hit enter and we have got NodeMon telling us that our app is started and it is watching it And it's actually given us a list of extensions that it's watching out for right here and we'll talk more about them in just a second.
+4:44
+But now let's go to server dot j s and let's make a change to our code.
+4:48
+We don't actually need this dir name so let's delete it.
+4:51
+We'll hit save and the app has restarted.
+4:54
+Let's see what happens if we add rec right here.
+4:57
+I think that is gonna break the app because as I recall our handle get function is only expecting the response as a parameter.
+5:05
+So let's save.
+5:07
+Now the app restarts.
+5:08
+It appears to have worked but let's go to read and none of our sightings load.
+5:13
+So let's just put that back to how it was.
+5:15
+Hit save and there we are.
+5:17
+It's working again.
+5:18
+So you can really see hot reloading in action and as you can imagine when you haven't got Scrimba's runner to rely on, that is gonna be really really useful.
+5:25
+Okay.
+5:26
+A few points just to finish on.
+5:27
+What about front end files?
+5:29
+Well, NodeMon is designed for server side Node JS applications and not front end JavaScript files.
+5:34
+With front end files, we already have the option to make changes and refresh the browser as they are served as static files.
+5:41
+We don't need Node.
+5:42
+For that.
+5:43
+But you can investigate other hot reloading options so you don't even have to refresh the browser every time you save changes.
+5:49
+But that is outside the scope of this screen.
+5:51
+We are just focusing really on the back end here.
+5:53
+Okay.
+5:54
+Let's just recap.
+5:55
+So NodeMon is only for development.
+5:58
+It is not used in production.
+6:00
+It's a convenience tool.
+6:01
+It doesn't change how Node.
+6:02
+Js runs.
+6:03
+It just helps us develop faster.
+6:05
+And finally, it is configurable.
+6:07
+You can ignore files and watch specific extensions, etcetera.
+6:10
+So we saw that if we just open up the terminal again where we started up Node.
+6:16
+Mon, it told us it's watching these extensions JS, MJS, CJS and JSON.
+6:22
+Well, you might also want to watch some database files or you might be working with TypeScript in which case you can configure Nodemon to watch specific file extensions And if you want to read up on that, head over to the NodeMon docs that on GitHub.
+6:36
+This screenshot is a link and there's a ton of information about what you can do with NodeMon right there.
+6:41
+But the important thing for now is that you know it exists.
+6:44
+Why not give it a go in your local environment?
+6:47
+Okay.
+6:47
+That is just a quick introduction to NodeMon.
