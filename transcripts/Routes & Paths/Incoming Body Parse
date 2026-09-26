@@ -1,0 +1,125 @@
+Transcript
+0:00
+We need to figure out how we can grab the incoming body when the client makes a post request.
+0:05
+So the body is the part of the request that holds what the client is trying to send to us.
+0:11
+The code to do this is pretty simple, but it's also a bit counterintuitive.
+0:16
+So let's take a look.
+0:18
+I'm back at Retro Tech, and I've just added this subscribe page.
+0:22
+All we've got here is an email sign up.
+0:24
+We've got one input field and one button.
+0:27
+And when we click the button, the front end code which we've got in index dot j s makes a fetch request to this slash sub endpoint.
+0:35
+The method is post.
+0:36
+We're sending JSON and then down here we're stringifying the body and this is the object that we're sending.
+0:43
+So we've just got the input field dot value so that will be the email address which has been inputted here.
+0:49
+What happens next is that the data is sent in one or more chunks from the client to the server And this chunking happens under the hood.
+0:57
+Small amounts of data like an email address might be just one or a small number of chunks.
+1:02
+Larger bodies will, of course, be more chunks.
+1:05
+So the chunks go flying towards the server and eventually the last chunk will arrive at the server and the server will send some kind of response to the client to let it know whether or not it's been successful.
+1:17
+And you don't need to worry about this chunking.
+1:20
+The client operating system and TCP, the transfer control protocol handle all of that under the hood.
+1:27
+You just need to know that chunks are coming in and as you don't know how many of them there are or how big they are, this is an asynchronous process.
+1:35
+Okay.
+1:36
+Let's look at the code.
+1:37
+So we've got this post request coming in and we are gonna pick it up in server dot j s.
+1:43
+And I'm going to write my code here, but when you do this in the main project, you're gonna keep things neat by abstracting as much code as possible away into a utility function.
+1:53
+The first thing we need is a root.
+1:55
+So let's say if rec dot URL and what we're looking out for here is a request to the sub endpoint.
+2:03
+We also want to make sure that the request's method is post.
+2:08
+Now I'm going to use a let to hold the body and I'll initialize that to an empty string and now we're gonna build the body chunk by chunk using a for of.
+2:19
+So we'll say for const chunk of rec and then its body plus equals chunk and there's one slight change we need to make here from a regular for of.
+2:29
+Remember this process is inherently asynchronous.
+2:33
+We've got chunk after chunk of data coming in and we need to await them.
+2:37
+Next, we need to pass the body and we're gonna do that in a try catch.
+2:42
+If there's an error, let's just log it.
+2:44
+We'll say invalid JSON and give the error.
+2:47
+And before I forget, I want to return right here because whatever happens if the client makes a request to the slash sub endpoint and the method used is post, we do not want any further code to run.
+3:00
+So we need to return out of this.
+3:02
+Okay.
+3:03
+Let's deal with the passing.
+3:05
+I'm gonna say I'm gonna say const email object and that can be JSON dot pass and we will pass the body.
+3:13
+Now let's just log the email object and of course we need to deal with the rest of the response.
+3:19
+So let's take the response and we'll set the status code.
+3:23
+That can be two zero one which shows that a resource has been accepted.
+3:27
+Then we need the content type application JSON and of course we need to end the response and it's normal that we'll pass something back to the server and what you pass back depends on exactly what you're doing but in this case let's just pass back the email object and of course we should handle the error properly here we should be passing a different status code etc but I don't think we need to cover that ground again you've seen that before and you're gonna do it when you do the challenge.
+3:56
+So let's just save and see if this is working.
+3:59
+I'm gonna open up the terminal and let's put an email address in here.
+4:03
+Hit send and we're getting an error but we're also getting some success here so we've got the object which we sent in from the front end so that's working fine.
+4:12
+I think I see the problem here I've said res dot end and then I've passed in this object.
+4:17
+Of course, we should actually stringify that object.
+4:20
+That's my pretty silly mistake so let's just do that and we'll try this one more time.
+4:26
+I'll hit send.
+4:27
+There we are.
+4:28
+That's working properly.
+4:29
+Let's check out the front end console which we've got right here and we can see we're sending back the information which it sent to us.
+4:37
+Okay.
+4:38
+So that is the process working but I think we need to talk a little bit more about why because the first time I saw this I found it pretty confusing and what I'm thinking about is this bit right here.
+4:49
+We're apparently looping over rec and then passing each chunk to the body.
+4:54
+That's pretty strange because rec holds a lot of info like rec dot URL and rec dot method.
+4:59
+So how can we just loop over it like that and extract the body?
+5:03
+Well, under the hood, node has separated out the headers from the body.
+5:09
+So if we ask for rec dot URL like we're doing right here, node will give us access to that.
+5:16
+But if we just loop over rec, node will give us access just to the chunks in the stream which make up the body.
+5:22
+So that's a handy hidden feature of node which just makes this much simpler.
+5:27
+But as I said, a little bit counterintuitive when you first see it.
+5:31
+Take a good look at this code because you know what you're gonna have to do in the next scrim.
