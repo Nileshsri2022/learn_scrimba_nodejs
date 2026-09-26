@@ -1,0 +1,190 @@
+
+Transcript
+0:00
+We are back at Retro Tech, and hopefully by the end of this scrim, we will have served index dot HTML.
+0:06
+But just to manage your expectations, we won't be serving the CSS yet, so you won't actually see this.
+0:12
+You'll just see some unstyled HTML.
+0:14
+Now to read the HTML file at the location we've specified, we need to use the file system module, which is abbreviated to FS.
+0:24
+The FS module provides various methods for interacting with the file system of your operating system.
+0:29
+These methods allow us to read files with, for example, the read file method, create files with the write file method, update files, delete files, and rename files.
+0:40
+Now in this course, we'll be reading files and creating files.
+0:43
+And to serve index dot HTML, we only need to focus on reading files, and that is what we're gonna look at in this scrim.
+0:51
+So let's import f s from node colon fs.
+0:56
+And now we hit a sticking point because there are actually multiple ways that we can use the fs modules methods and this can cause some confusion.
+1:04
+I'm actually going to start by showing you two ways that we will not be using in this project just because I want you to be aware of them because they are out there in code you might come across.
+1:13
+The first pattern we're gonna use is really simple.
+1:16
+Right here, I'm gonna say const content and that is gonna hold fs dot read file and I'm gonna add sync and then we'll pass in the encoding which is UTF eight and the encoding is optional and we're gonna talk about that quite a bit more in just a moment.
+1:34
+Okay.
+1:35
+Let's take this content and we'll use the end method to send it to the client.
+1:39
+Let's hit save and there we are.
+1:41
+We've got our unstyled HTML right there in the mini browser.
+1:46
+So that works.
+1:46
+It's really simple, but we've got a problem right here.
+1:50
+Sync.
+1:50
+This is synchronous code, which means that it's blocking.
+1:54
+In a small app like this, it's not gonna cause any harm, but in larger apps, it could cause performance issues and other problems.
+2:01
+So unless you actually want synchronous code, normally, you would avoid read file sync and go for an async option.
+2:08
+And that is exactly what we're gonna do next.
+2:11
+So I'll delete this line, and I'm gonna say f s dot read file.
+2:16
+So no need to add sync on the end to this one.
+2:19
+We'll pass in the path to our resource.
+2:22
+Again, we'll add the optional encoding.
+2:24
+Oh, eight, not nine.
+2:26
+And now we have a callback.
+2:28
+And this callback takes into parameters the error and the content.
+2:32
+And now we need a conditional.
+2:34
+Let's say if there's an error, we'll just log the error and we will return out of that.
+2:40
+And then if all is going well, we can use these three lines right here.
+2:44
+Let's just format that and that should work.
+2:47
+And just to test it, I'm going to go to the index dot HTML file and let's just add an exclamation mark right there.
+2:56
+I'll save that.
+2:57
+We'll save server dot JS and we can see it's working.
+3:01
+We've got the exclamation mark so that is pretty good.
+3:04
+But the problem we've got here really is just the complexity of this code.
+3:08
+Using callbacks like this can be a real pain and you can end up in callback hell where you've got millions of nested callbacks and it's really, really hard to maintain and debug.
+3:18
+And when it gets to that situation, you might just think there are easier ways to make a living, like becoming a shark's dentist, for example.
+3:26
+But don't worry.
+3:27
+Luckily, there's a modern technique which is easy to read and write and uses async await syntax.
+3:33
+To do that, we actually change the import statement.
+3:36
+We're gonna add slash promises, and this is a technique that Node provides us with which will wrap a promise around the FS module.
+3:44
+Now we can use the async await syntax.
+3:47
+So let's delete most of this, and we'll start again with const content.
+3:52
+And then we'll say FS dot read file.
+3:58
+We'll pass in the path to resource and the encoding, but this needs to be awaited.
+4:05
+And because we're now using asyncawait syntax, this function becomes an async function.
+4:10
+Let's just sort the formatting.
+4:12
+That's looking a bit better.
+4:14
+And I might take away the exclamation mark we've got right here.
+4:18
+Let's hit save.
+4:19
+And it looks like that is working.
+4:22
+There we are.
+4:22
+So that is much easier, nicer syntax to read.
+4:26
+And as you work more with Node, you will find that some modules methods have got sync and async versions.
+4:32
+And most of the time, you'll be wanting to work async for all of those non blocking benefits.
+4:37
+So right now, index dot HTML is successfully served.
+4:41
+We could go ahead and repeat ourselves and set up loads of routes to handle the other HTML pages and the CSS.
+4:47
+But as you can imagine, we don't want to set up a route for every asset.
+4:51
+There could be thousands and of course some pages might well be dynamic.
+4:55
+So we're gonna stick with what we've got for now and soon we will look at how we can make this process much more flexible.
+5:01
+But before we move on, I want to talk about this encoding.
+5:05
+Here we've specified UTF eight and I did say it was optional and in a moment we're actually going to delete it.
+5:11
+Let me show you why.
+5:12
+If we just log out our content and we add type of, let's just open up the terminal and I'll hit save and we're getting string after string after string.
+5:22
+Any request that's coming from the browser is serving this index dot HTML page.
+5:27
+Now the importance of this being a string is this.
+5:30
+If we delete type of, we'll actually see the string and it is our HTML in string form.
+5:37
+And you might think that's all well and good, but this function we're creating here is not just for serving HTML.
+5:43
+It's also for serving images which don't need UTF eight encoding.
+5:47
+So applying UTF eight across the board could actually corrupt some files.
+5:52
+Let's just delete it.
+5:54
+And I'm gonna put type of back.
+5:56
+I'll hit save.
+5:57
+And now we get object after object.
+5:59
+But remember objects cover a ton of possibilities in JavaScript.
+6:02
+So let's delete type of.
+6:04
+When I hit save now, we see we get this buffer.
+6:08
+And you can think of a buffer as a data type in node.
+6:10
+It's a low level representation of raw bytes.
+6:14
+Nobody would expect you to understand this.
+6:16
+We can't do much with a buffer.
+6:17
+It needs to be encoded before it becomes usable and readable.
+6:21
+But browsers are able to interpret buffers correctly using the content type header.
+6:26
+So with this index dot HTML page, we are specifying the content type of text slash HTML, and the browser will use that to interpret this buffer and render it correctly.
+6:37
+So by sending buffer and not a UTF eight encoded string, we're making our server more flexible and this avoids potential issues with misinterpreted data and corrupted files.
+6:48
+So when there's any question over what encoding is needed, it's actually best to leave off the encoding and let Node and the browser handle it under the hood.
+6:57
+Okay.
+6:58
+Remember this syntax right here and f s slash promises because next we'll go back to the main project and put these skills to use there.
+7:06
+And then, of course, we will be back to finish the job and serve all of our pages and assets.
