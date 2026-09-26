@@ -1,0 +1,68 @@
+
+Transcript
+0:00
+Let's get stuck in to the first project.
+0:02
+We are going to build the Wild Horizons API.
+0:05
+It's a one stop shop for fun facts about some of the world's most intriguing travel destinations, and we have a noble aim here.
+0:14
+Instead of people taking holidays like this and even worse like this, we want people to be broadening their horizons by visiting destinations like the dragon blood trees of Socotra or this, the doorway to hell in Turkmenistan.
+0:28
+Pretty cool destinations.
+0:30
+You still wanna be doing this, don't you?
+0:33
+Oh, well, I can't help everybody.
+0:35
+Anyway, let's have a look at the data we're going to serve.
+0:38
+So each destination is an object with a name, location, and country and continent.
+0:43
+We've got a boolean is open to the public, which will be true or false, of course.
+0:47
+And then details holds an array with a fun fact and a description for each destination.
+0:52
+And, of course, each one has a UID, a unique identifier.
+0:56
+There are going to be three ways that the user can get access to our data.
+1:00
+They can hit slash API which will get them the entire dataset.
+1:04
+They can use slash API slash country and then the name of a country and in fact we'll also do that for continent so it could be slash country slash India or slash continent slash Asia or Europe.
+1:14
+And we will also accept query parameters and these are great for more complex filtering so in this case we're looking for the country of Turkey and we only want objects where is open to the public is set to true.
+1:27
+And we've got a whole ton of data.
+1:29
+You're welcome to pause and look through it.
+1:31
+I think there's something there for everyone.
+1:34
+As we build this project, there's plenty we're going to study.
+1:37
+We are going to get to know Node's core HTTP module.
+1:41
+We'll be creating a server, sending status codes like two hundred, four hundred and four zero four.
+1:46
+We'll be setting headers, handling requests and responses, filtering data, and extracting query params.
+1:53
+And of course, there'll be plenty more plus challenges.
+1:55
+Now you don't need any Node.
+1:57
+Js knowledge to do this course.
+1:59
+That said, if you're completely new to back end and have never used Scrimba's network tool before, I recommend checking out this scrim that looks into some of the basics of how we'll be querying the API and it also covers some concepts like headers, content type and status code, etcetera.
+2:14
+If you already know about that stuff, absolutely skip this.
+2:18
+But if not, click on this slide.
+2:20
+That's gonna take you through to a scrim.
+2:21
+It won't take you long to watch, and it might maximize the benefit you get from this course.
+2:26
+Okay.
+2:27
+When you're feeling ready, let's go.
