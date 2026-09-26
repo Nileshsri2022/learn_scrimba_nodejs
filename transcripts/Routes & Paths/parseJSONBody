@@ -1,0 +1,96 @@
+
+Transcript
+0:00
+It's time for a challenge.
+0:01
+And in this scrim, you're going to largely recreate what I did in the previous scrim with a few changes.
+0:08
+So at the moment when a post request comes in, server dot j s is passing it to handle post.
+0:15
+And handle post is right here in root handlers.
+0:17
+At the moment, handle post doesn't do too much, but by the end of this scrim, it is going to get passed JSON body to grab the incoming body and pass it.
+0:27
+Let's just take a look right here.
+0:28
+So pass JSON body already exists as a file.
+0:31
+It's right here in utils, and completing the function is your first challenge.
+0:36
+So create a function.
+0:38
+Pass JSON body is the name, which gathers the incoming chunks into a string body.
+0:43
+It needs to return body and throw an error if body can't be passed.
+0:47
+And I've just put here a string that you can use when you throw that error.
+0:52
+Once you've done that, cross over to root handler dot j s and your second challenge is right here.
+0:57
+Create a const raw body to store whatever is returned by past JSON body.
+1:02
+I'm already importing that.
+1:03
+You can just uncomment this when you're ready.
+1:06
+For now, just log raw body and you can input an entry into the front end right here, hit submit, and give it a test.
+1:15
+You can ignore all of this down here.
+1:17
+That's just a little checklist for us, things which we still need to do inside handle post, but that is for a different scrim.
+1:24
+Okay.
+1:24
+Let's go back to pass JSONBody, and you can get to work on this challenge, and I've given you some hints in hint dot m d if you need them.
+1:33
+Okay.
+1:34
+Hopefully, you got that working.
+1:35
+No problem.
+1:36
+If you needed a peek back to the previous scrim or, of course, a little look at hint dot m d, that is what it's there for.
+1:42
+Let's make a start.
+1:44
+So let's export function, pass JSON body, and this is going to be an async function.
+1:51
+Let's set up a string to hold the body and now we'll say for await const chunk of rec and that reminds me we need to bring in the rec and then inside the curly braces we can just build up body by saying plus equals chunk.
+2:08
+Okay.
+2:08
+Next we need to pass body and we're gonna do that inside a try catch and sometimes it's easier just to deal with the catch first.
+2:16
+So if passing fails, let's throw a new error and this is the string we're going to use.
+2:23
+In the try block, we need to pass the body and return it.
+2:26
+Well, we could do that with one line return JSON dot pass and pass in the body.
+2:33
+Let's just sort out the formatting a little bit.
+2:35
+Okay.
+2:36
+I think that's fine.
+2:37
+We'll hit save and then go over to root handlers and here we can uncomment the import statement and now we can use that function.
+2:45
+So it's telling us to create a const raw body and that is gonna hold what we get back when we call pass JSONBody and we pass in the rec.
+2:54
+We know that pass JSONBody is an async operation so we need to await this and that means of course that this is an async function.
+3:04
+Okay let's log RawBody.
+3:06
+We'll hit save and now let's see if we can add an item.
+3:10
+I'm not gonna write anything special in here because we're not adding to our data yet we just want to see something in the console So in fact, let's open up the terminal and I'm just gonna put test title.
+3:20
+That shows you when I'm recording this and where I'm recording it.
+3:24
+Let's hit submit and look what we've got.
+3:27
+We appear to be logging out raw body which is this object right here.
+3:31
+That is pretty cool and now we're just a few steps away from actually having this project finished.
+3:37
+The next step is to actually get a new sighting added to our data so let's start looking at how we do that in the next scrim.
