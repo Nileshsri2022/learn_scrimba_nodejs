@@ -1,0 +1,184 @@
+
+Transcript
+0:00
+Imagine this.
+0:01
+You're looking at some tennis on a sports news website, and suddenly somebody scores a point and the score updates.
+0:08
+Did you see what happened there?
+0:10
+Marin Cilic just won.
+0:12
+So we went from being five three to six three, and the game is over.
+0:17
+But how did that happen?
+0:19
+We didn't reload the page or click anything, but somehow the server managed to update the site we were looking at.
+0:25
+Well, one way of doing this is with server sent events, and that is what we're gonna look at in this scrim.
+0:32
+Server sent events allow a server to provide a constant stream of data to a client, and that makes server sent events really useful for anything which needs a one way data flow where no response from the client is needed.
+0:45
+So that could be things like breaking news updates, stock price tickers, sports scores like we just saw, real time monitoring apps, and of course, are many others.
+0:55
+But just to be clear, with server side events, data only flows one way.
+1:00
+So they're not suitable for chat apps.
+1:02
+They're not suitable for doorbell cams where you can see who's at your door and also speak to them.
+1:07
+That is a two way communication.
+1:09
+So, basically, anything where two way communication is needed, server side events are no good.
+1:15
+Let's take a look at how they work, which is actually fairly simple.
+1:18
+The client will make a request to a server.
+1:21
+The server then opens a connection back to the client, and it holds it open, sending data as needed.
+1:27
+The client will listen for these updates and process them in real time.
+1:30
+Okay.
+1:31
+Let's take a look with some code.
+1:33
+Right now, I am building the world's most basic weather app.
+1:37
+It just displays the current temperature, which at the moment is hard coded in index dot HTML.
+1:43
+We are gonna open a connection from the server to the front end, and we're gonna update this figure.
+1:48
+But first, let me just explain the code we have already got here.
+1:51
+So in server dot JS, I've set up a new endpoint which we're gonna use in a minute.
+1:56
+Any request which comes in which is not for that endpoint is gonna be handled by handle files.
+2:02
+Handle files is a function right here, which is just serving index dot HTML and index dot j s.
+2:07
+There is nothing new in handled files.
+2:10
+It's all the regular stuff for serving files that we've seen before just in a very simplified way.
+2:15
+Now the reason we're serving index dot JS is because we are gonna need to write some front end code for this in a moment.
+2:20
+Before we write any code, I want to just show you this get temp function, and that is just providing us with the temperature that we'll be using to update what we've got here.
+2:29
+You're welcome to check out this logic, but basically what it's saying is that we're gonna have a temperature which is no lower than minus thirty, no greater than fifty.
+2:37
+We're gonna use math dot random to decide whether the temperature goes down by one or up by one.
+2:42
+And so when we run the app, the temperature should change on each update just by one degree, maybe higher and maybe lower.
+2:49
+Okay.
+2:50
+Let's get stuck into the code.
+2:52
+Now we've got an endpoint set up here slash temp slash live.
+2:56
+And the first thing that I want to do is set the status code.
+2:58
+So that's res dot status code, and that will be two hundred.
+3:02
+Next, we need to set some headers, and we're actually gonna set quite a few headers.
+3:06
+The first one will be the content type, and this one is really important.
+3:11
+It's set to text slash event stream, and that is the key header.
+3:16
+The next one is cache control and we're gonna set that to no cache and that figures because we do not want any caching of the data that we're sending down to the client.
+3:27
+The whole point of this is that it gets updated.
+3:30
+It's not cached.
+3:31
+The third one we're gonna set is just called connection and we're going to set that to keep alive.
+3:37
+So we do not want this connection to close.
+3:40
+Okay.
+3:41
+Now to deal with sending the temperature And I'm actually gonna put this inside a set interval.
+3:47
+And let's have it update every two seconds.
+3:51
+Firstly, we need a temperature.
+3:52
+So let's say const temperature and we'll use the get temp function, which is gonna return us a temperature.
+3:59
+Now we'll call res dot write and I'm gonna open this up onto a new line because we have got quite a lot to write in here.
+4:07
+We're gonna use a template string and we're gonna start with data and then we'll open up the literal and we'll say JSON dot stringify because we're gonna pass in an object.
+4:18
+The first key value pair we've got in this object is an event and this is where we can actually name the event which can be helpful if you've got lots of events.
+4:27
+I'm gonna call this one temp updated.
+4:30
+Next let's give it a temp property and that can hold temperature which we've got right here.
+4:36
+Now the next thing I'm gonna do is really important.
+4:39
+I'm gonna say backslash n backslash n And this is actually required by the server sent events protocol because it signals the end of a complete message block.
+4:49
+If you miss these out, this will not work.
+4:52
+And another thing I want to point out to you is that we're using res dot write here.
+4:56
+We do not use res dot end because res.
+4:59
+End finishes the response and we don't want to do that.
+5:02
+We want to keep this connection open.
+5:04
+Okay.
+5:05
+Let's save that and we'll just format it and now we need to write some front end code.
+5:10
+So in index dot j s we need a new instance of event source.
+5:15
+So I'm using lowercase e and that is going to hold this new instance of the event source class and event source is an interface which is used to receive push notifications from a server via server sent events.
+5:28
+So it allows a persistent one way connection where the server can send updates to the client.
+5:34
+All we need to give it is the path to our endpoint and that is slash temp slash live.
+5:40
+Okay.
+5:41
+Next we need to take control of the element that we want to update so that is this one right here with an ID of temp hyphen display.
+5:49
+Next we're gonna use two methods on our instance of event source.
+5:53
+They are gonna be on message, which is not camel cased, which I found a bit weird at first.
+5:59
+And we're also gonna use on error.
+6:01
+Let's deal with on message first.
+6:03
+So that can hold a function which is gonna take in the event as a parameter.
+6:09
+Now let's take some data.
+6:11
+So we're gonna do that with JSON dot pass and we'll pass in event dot data and then we can extract a temperature from that which should be data dot temp because right here that is how we set up this object and this is the object we're accessing.
+6:28
+Now let's display it.
+6:30
+We can go with text content and that can just equals temperature and then we'll deal with the error.
+6:36
+So again we can take an arrow function, and let's just log an error message.
+6:41
+Okay.
+6:42
+Let's hit save and see what happens.
+6:44
+And we're getting some changes.
+6:46
+And every two seconds, we're updating the temperature.
+6:49
+It's going down and up.
+6:52
+So we're sending this data from the server down this live connection whenever we want.
+6:56
+And although this is a very silly app, that is a very cool skill to have.
+7:01
+So let's go back to our app for a challenge where you're gonna add some functionality just like this.
