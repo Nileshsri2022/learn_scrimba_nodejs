@@ -1,0 +1,121 @@
+Transcript
+0:00
+In this scrim, we're going to dive into events.
+0:02
+And you might have heard it said that Node has got event driven architecture.
+0:06
+And event driven architecture is a programming style where the flow of a program is determined by events.
+0:12
+So instead of a strict sequence of instructions, code is designed to react to events as they occur.
+0:18
+Now as web developers, we're pretty used to this.
+0:21
+Most of what we do is focused around clicks, scrolls, and submits.
+0:25
+So let's just quickly recap what an event is.
+0:27
+An event is a signal that something has happened.
+0:31
+So for example, a user clicks a button, a file finishes downloading, a network request is received, and of course, there are many, many more events that we could list.
+0:40
+In this scrim, we're actually going to focus in on the event emitter which comes from node's event module.
+0:46
+The event emitter allows us to emit a named event which can then be picked up and handled by listener functions.
+0:53
+So when that named event occurs, in this case, the user clicks a buy now button, all of these functions can be triggered.
+1:00
+So we're generating a PDF invoice, generating an order note, notifying logistics of the sale, and sending an email confirmation.
+1:07
+In our example today, we're going to create an event emitter which emits an event when some part of our app requests for a customer to be emailed.
+1:15
+Let me show you what I mean because event emitters are definitely one of those things that it's much easier to understand when you actually see the code in action.
+1:23
+So let's import event emitter and the event emitter class comes from nodes events module.
+1:31
+Next, we need to create the emitter.
+1:34
+So I'll say const and I'm just gonna call this email request emitter and that will hold a new instance of this event emitter class.
+1:43
+Okay.
+1:43
+Let's go right ahead to the bottom and emit an event.
+1:46
+So we'll take our instance of event emitter and we'll call the emit method.
+1:51
+This needs two pieces of data.
+1:53
+The first is the name of the event and we're actually at the top of the pipe here so this is where we name it and I'm just gonna call it email request.
+2:02
+The second thing we need to pass the emit method is any parameter that we want to pass on to the function that this event will trigger, the listener function which we'll define in just a moment.
+2:11
+So let's bring in a const customer details and our customer is the ovine movie star Meryl Sheep and this is actually a reference to a movie.
+2:20
+If you're under thirty, you'll probably need to Google that one.
+2:23
+Okay.
+2:24
+Let's take the customer details and pass them to the emit method.
+2:28
+Now at this point, we could pass in multiple parameters if necessary.
+2:32
+We could also not pass any parameters if the listener function doesn't need any.
+2:36
+Okay.
+2:37
+So we've got the emitter set up.
+2:39
+Now we need to define a listener function.
+2:41
+I'm just gonna call this function generate email.
+2:45
+It's gonna take in a customer as a parameter and it's just gonna log email generated for customer dot email.
+2:52
+Finally, we need to register the listener.
+2:55
+So again, let's take our instance of the event emitter and now we'll use the second really crucial method which is the on method.
+3:03
+Again, we need to pass on two pieces of information.
+3:06
+The first is the name of the event.
+3:09
+So that is email request and the second is the listener function generate email.
+3:14
+Let's stick that right in there.
+3:16
+So what we're saying here then is on hearing this event do this.
+3:20
+Let's hit save and I'm gonna run this code with node server dot j s and it says email generated for and there we have got our email address.
+3:30
+So that is working.
+3:32
+Just to prove the point, we might take the emitter right here and wrap it in a set timeout.
+3:39
+Let's give it a two second pause and we'll run the code.
+3:43
+Nothing happens and then the code executes.
+3:47
+And so we can see the on method is reacting to the event when it happens.
+3:52
+So the part of the app which needs the email sent can omit the event when it's ready and the listener will be ready to pick it up.
+3:59
+Now with one small example and all of the code in the same file, this is of course totally contrived and we could do it more easily with some basic function calls.
+4:08
+But when your code is modular, you can omit an event in one part of your app and listen for it in another and that makes it really easy to scale and maintain your code.
+4:17
+And the beauty of this is that you could have multiple listeners.
+4:21
+So I've just added two more.
+4:23
+I haven't bothered with full listener functions.
+4:25
+I've just put them in line as arrow functions.
+4:27
+Let's hit save, run that code after two second pause.
+4:32
+All three of those are triggered.
+4:34
+So hopefully now you're starting to see the beauty of the event emitter.
+4:38
+So let's go back to our app.
+4:39
+We're gonna wire in an event emitter and there where our code is modular, I think you're gonna see the benefits.
