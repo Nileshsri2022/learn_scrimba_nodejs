@@ -1,0 +1,106 @@
+
+Transcript
+0:00
+In this grim, we're going to lay some foundations to get this upload functionality working.
+0:04
+But before we start, I just want to have a quick look at something right here.
+0:08
+This name, raw body, is actually a bit confusing.
+0:12
+I called it raw to mean unsanitized, but now it feels like it could mean unpassed.
+0:18
+When in fact, it is passed.
+0:19
+We passed it right here in past JSON body.
+0:22
+So I'm gonna change this name to past body.
+0:26
+I think that's just a little bit clearer.
+0:28
+And then when we come to do the sanitization, we will have a little bit more work to do in this area anyway.
+0:33
+Okay.
+0:34
+Next, let's understand at a high level what it is we want to achieve in this scrim and the next.
+0:40
+So the idea is the user can type in their story, hit submit, that will be sent to the server, processed, and it will be added to our data.
+0:49
+Then whenever anybody goes to this page, the front end JavaScript attached to this page makes a request to the API and all of the data comes down.
+0:58
+That is how this page gets updated.
+1:00
+Now the challenge to do this is gonna be quite big and there are some parts of it which you've done so much you don't need to practice anymore.
+1:07
+So that is why I am gonna do quite a lot of the donkey work in this scrim.
+1:11
+Now I've already added a file here, add new sighting and in the next scrim that is where your challenge is gonna be.
+1:18
+But right now, I wanna do some work in route handler.
+1:21
+Firstly, let's import add new sighting and because that function isn't created yet, I'm just going to comment that line now and you can uncomment it when you need it.
+1:31
+Now we're gonna set up a try catch in here and we'll move this up inside the try.
+1:38
+And also in here, we're going to await the function you're actually going to create in the next scrim, which is add new sighting.
+1:45
+You'll be sending the past body to add new sighting because that will be the information which has just come in from the client, the information you're going to add to the data and then we're gonna send a response back down to the client and send response will need to have the response object of course.
+2:01
+It's gonna need a status code and I'm gonna give that to you for a mini challenge in just a moment.
+2:07
+It's gonna need a content type which will be application slash JSON and it's going to need the past body but of course it will need it as a string.
+2:17
+And you might ask why are we doing this?
+2:20
+Why are we sending it what it just sent us?
+2:22
+Well that is pretty normal.
+2:24
+We're basically saying to the client here yes we received your post request, we've got your new resource, here's your status code to confirm it and this is what we got.
+2:33
+Now if that fails, we had better move on to the catch block.
+2:37
+Let's just space things out.
+2:38
+So again here we're gonna send a response because if something's gone wrong, client needs to know about it.
+2:45
+Send response needs the response object.
+2:47
+Again, it needs a status code, the content type application slash JSON, and we'll send an error message.
+2:55
+So let's just put that in an object.
+2:58
+So we'll say JSON dot stringify error and then we'll just put in the error that we're catching right here.
+3:05
+Okay.
+3:05
+Time for a little mini challenge.
+3:08
+I want you to decide which status codes need to go right here and right here.
+3:12
+So just remember here we're letting the client know that we've received their post request successfully and we've created a new resource and down here we're letting them know that there was a problem with their request.
+3:24
+So you might know this off the top of your head which is great.
+3:26
+If not, it's a really quick search away.
+3:31
+Okay.
+3:31
+What we want here is a two zero one that says that a new resource was created successfully and then down here it was a bad request so that is a four hundred.
+3:42
+Okay.
+3:43
+So everything in route handler is now ready.
+3:46
+Let's hit save.
+3:47
+You will need to uncomment this when you come to your challenge in the next scrim and in the next scrim, you've got a big challenge waiting for you.
+3:54
+Once you've done that, you can uncomment this line right here and give this a test.
+3:58
+I'm keeping it commented for now just because I don't want us to get errors every time we reload the page.
+4:04
+That's just gonna be a bit annoying.
+4:05
+Okay.
+4:06
+When you're ready for a big challenge, head on to the next screen.
