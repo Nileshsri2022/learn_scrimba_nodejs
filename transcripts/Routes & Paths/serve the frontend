@@ -1,0 +1,157 @@
+Transcript
+0:00
+In this project, we want to have data that we can read and write to because right here we've got this upload page and this is where users can add sightings of anything paranormal they've seen.
+0:11
+And then on this read page right here, this is where users will be able to view all of those sightings.
+0:17
+The sightings are gonna be stored as JSON data, and I've set some up right here.
+0:21
+We've got three ghostly encounters already in it, so we've got some data to work with.
+0:26
+By all means, go ahead and read these, but they are quite creepy, so don't have nightmares.
+0:31
+Now as we're going to be writing to this data, we want to be able to get to it dynamically.
+0:36
+We don't want to just import it once when the app loads.
+0:38
+And we know how to do that already because we've used the FS module to read our static files.
+0:44
+So to get our data, I've set up a new file in utils called get data, and it holds this get data function.
+0:51
+And we're going to use this function anywhere in our app where we need to get our data.
+0:56
+At the moment it's just returning a silly string, I'm exporting it and in server dot j s I'm importing it and right here I'm logging it out and I'm deliberately doing that outside of the server so we don't have to open the mini browser every time we want to see what it's returned.
+1:11
+So let's just open up the terminal and we've got I'm from get data so that's what we're returning right here.
+1:18
+It's working.
+1:19
+Sanity check complete.
+1:21
+Now I've also imported the two modules we need, the path module and the FS module.
+1:26
+So let's take a look at what this function needs to do.
+1:29
+Well, it needs to read the JSON in JSON dot data, and it needs to read it as a string.
+1:35
+Then it should pass it to JavaScript and return the past data.
+1:39
+If there's an error, it should return an empty array.
+1:42
+And I've put think why are we doing this.
+1:45
+So just give that some thought while you're doing the challenge.
+1:47
+Now before you start, I want to circle back to what we know about paths because when using the path module so far, we've used dirname, which gives us an absolute path.
+1:59
+In serve static, for example, we called serve static in server dot j s and we passed in the name, then we picked it up as base directory.
+2:09
+It's an absolute path to the folder holding server dot j s, and we've used it here to create a path to the public directory and then on to serve all of our front end files.
+2:19
+But the function we're going to create now is designed to be used in various places.
+2:23
+Any part of our app that needs to get the data will be able to import get data and have this JSON data returned to it.
+2:31
+So as we build out this function, rather than passing their name like we did when we were calling serve static from server dot j s, it's gonna be easier and more flexible to use a relative path.
+2:43
+Now using a relative file path here is not gonna be a problem.
+2:46
+In a small app like this, it's absolutely fine.
+2:49
+We are sure our current working directory is not going to change.
+2:53
+And now it's time for your challenge.
+2:55
+I have given you a hint file if you need one, so go ahead and get this challenge sorted.
+3:02
+Okay.
+3:03
+Hopefully, you managed to do that just fine.
+3:05
+We are gonna work inside a try catch block.
+3:09
+I'll set up my path and now let's read the JSON data.
+3:13
+So I'll say const data and we will await fs dot read file.
+3:19
+We're gonna pass in the path JSON and because we want a string, we're gonna pass in the encoding UTF eight.
+3:26
+Now we have used await here, so we'd better make sure that this function is async.
+3:31
+Next up, we need to pass the incoming JSON to JavaScript.
+3:35
+I'm just gonna call this passed data and then we'll use JSON dot pass and pass in the data.
+3:43
+Then we just need to return passed data.
+3:46
+Okay.
+3:46
+We have said if there's an error it should return an empty array.
+3:50
+That's easy enough.
+3:51
+It wasn't part of the challenge but we should probably just log the error as well and let's just sort out the formatting.
+3:57
+Okay that is a little bit neater.
+3:59
+Now why did we return this empty array?
+4:02
+Did you figure it out?
+4:03
+Well that is going to be useful because an array is the data type that we're expecting to get back from this function so it will be easier to handle errors more gracefully if we return an empty array rather than returning nothing or null or undefined.
+4:16
+Okay.
+4:17
+Let's hit save and we're getting promise with unknown.
+4:20
+That's because now this is async.
+4:22
+So right here we need to await get data.
+4:25
+Let's try that again and look there we are.
+4:28
+We have got all of that data straight from data dot JSON.
+4:32
+Okay.
+4:33
+Before we finish, there's something I want to deal with.
+4:35
+Something which you might have noticed.
+4:37
+You might be asking why are we passing the data right here?
+4:42
+Why are we taking it from a JSON string to a JavaScript array?
+4:45
+When we serve it, we're gonna use JSON dot stringify on it.
+4:49
+And if you thought that, well spotted.
+4:51
+So what I mean here is that file system reads the file, we get this JSON string, we could serve that string and let it be passed on the front end and in fact we will serve it at some point.
+5:02
+So why are we passing it here into a JavaScript array?
+5:05
+Well, what we're doing here is a bit of future proofing.
+5:08
+When we handle post requests, we're going to need to manipulate our data on the server.
+5:12
+We can't manipulate the JSON string directly, so we'll need to pass it to a JavaScript array.
+5:18
+I suppose we could have two functions similar to this.
+5:21
+One to get the data to serve and another to get the data to manipulate.
+5:25
+Only the second one would need to pass the data.
+5:28
+But by building that process in here, we're making this function more reusable and we're barely adding any complexity.
+5:35
+So the small cost of passing and repassing is worth it.
+5:39
+If you don't see what I mean right now, don't worry.
+5:42
+We will bring this up again when we use this function to get data which we then manipulate rather than just serve.
+5:48
+That's what we'll do when we deal with this upload functionality that we've got right here.
+5:53
+We don't actually want to use getData in server.
+5:57
+Js so I'm gonna delete that and in the next grim we're gonna wire up getData properly.
