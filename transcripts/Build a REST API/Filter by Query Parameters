@@ -1,0 +1,240 @@
+
+Transcript
+0:00
+We need to be able to filter our data by query parameters.
+0:04
+And there are various different ways we could do this.
+0:06
+We could go all out and accept keyword searches and name searches, etcetera.
+0:11
+But when I do this, I'm going to accept just the following query parameters, The country, the continent, and this is open to public boolean.
+0:20
+So we need to be able to filter our data on any combination of those three.
+0:24
+I've put an example up here.
+0:26
+A user might want to search by the continent of Asia and is open to the public true.
+0:31
+So therefore, they'll get every destination in Asia which is open to the public.
+0:35
+Now you're welcome to add more functionality as a stretch goal.
+0:39
+This is the last challenge of the project, so really feel free to go to town.
+0:43
+But I'm going to stick to these three.
+0:45
+Let's just check out the challenge.
+0:47
+So I want you to update filtered data.
+0:50
+Oh, and I should point out I have changed this name to filtered data.
+0:54
+I did call it filtered destinations in the previous scrim, but everywhere else, we're using filtered data, I thought it just best to keep things uniform.
+1:03
+So update filtered data so it holds only the objects the client wants based on query params.
+1:09
+If the client doesn't use any query params, and by the way, I mean relevant query params, continent, country is open to public, then in that case, all of the data.
+1:19
+And that's just confirmation of the query params we're accepting.
+1:22
+And I've put here, keep our code tidy by doing the filtering in a util function.
+1:27
+And to those ends, I've opened up this function right here, get data by query params, and I'm already importing it into server dot j s.
+1:36
+And as I said, feel free to go your own way.
+1:39
+Don't worry that my solution might be different.
+1:41
+There are a lot of different ways of doing this.
+1:43
+I've put some pointers for you in hint dot m d if you get stuck.
+1:47
+But either way, get this challenge sorted.
+1:49
+And as it is the last challenge of the project, really give it your best.
+1:54
+Okay.
+1:55
+I really hope you got that sorted.
+1:57
+Let's have a look together.
+1:59
+So I'm going to take this function that we're importing, and I'm just going to paste it right there.
+2:05
+So now filtered data is going to hold whatever gets returned by getDataByQueryParams and we need to think what information that function is going to need.
+2:14
+Well I think it's going to need two pieces of information the destinations and also the query params which are in this object right here and I think that is all we need to do in server dot js.
+2:27
+Now over in get data by query params we need to take in those parameters.
+2:31
+Let's just call the first one data and the second we might stick to query object and I think the easiest way to get hold of the query params we've got in this object is just to destructure it.
+2:43
+So let's say const and we'll open up the curly braces and we can have continent, country and is open to public and of course we're taking them from query object.
+2:55
+Now we need some conditional logic.
+2:56
+I'm going to check if continent is a truthy value.
+3:00
+If it is, let's do some filtering.
+3:02
+So we'll take data and we'll set that equals to data dot filter and the parameter in this callback function will be destination.
+3:10
+And I want to do this in one line of code just to keep the code quite neat, but I am actually going to bring it onto a second line because else it's gonna run right across the page and probably get hidden behind the network tab.
+3:21
+Okay.
+3:22
+So what we want to compare here then is destination dot continent and we want to see if that is triple equals to continent and just like before I do want to compare lowercase with lowercase and that should be done.
+3:36
+Let's copy that process for country and then a third time for the is open to public boolean.
+3:44
+This one is going to be a little bit different though because it is a boolean value.
+3:48
+We are not obviously taking it to lowercase.
+3:51
+Now is this going to work?
+3:53
+Personally, I have my suspicions.
+3:56
+Let's return data.
+3:57
+We'll hit save and give it a test.
+4:00
+Okay.
+4:00
+So I'll hit send.
+4:01
+And we're getting an empty object.
+4:03
+So something is going wrong here.
+4:05
+And I think the problem might be to do with this boolean.
+4:08
+Let's see if we can prove that.
+4:10
+If we wrap this in curly braces, now we can add a little bit more JavaScript.
+4:16
+And we need to now explicitly return that line of code else the filter function is not going to work.
+4:23
+Now here I'm just going to do a console dot log and I want to compare what we've got going on here with what we've got going on here.
+4:32
+Okay.
+4:32
+Let's open the runner terminal and keep it open.
+4:35
+I'm gonna hit send again.
+4:37
+And look.
+4:38
+We're getting true compared with true, which is fine.
+4:41
+That different color suggests we might be comparing different data types.
+4:45
+Let's just add typeof and we'll go again hit send and look we're comparing a boolean to a string.
+4:52
+So how can we make this one into a boolean?
+4:55
+Well we can use JSON dot pass and we're just doing that in the console.
+5:00
+Log it's not going to work yet in the network tool.
+5:03
+Let's hit save.
+5:04
+Now we're comparing a boolean to a boolean.
+5:06
+Okay cool.
+5:07
+So let's just bring JSON.
+5:08
+Pass down here and now we can delete the console dot log.
+5:13
+We'll delete the curly braces and the return statement.
+5:17
+Let's just format that up how it was.
+5:19
+Okay.
+5:20
+We'll hit save and let's go again.
+5:22
+I can close the runner now actually and we will make ourselves a little bit more space and look that looks much more promising.
+5:29
+We've got is open to public set to true and only continent of Asia so let's check.
+5:33
+We've got Asia and true.
+5:36
+Again, Asia and true.
+5:37
+Asia, true.
+5:39
+Asia, true.
+5:40
+It is working.
+5:40
+Let's flip this one over to false.
+5:44
+And we have got Asia and false.
+5:47
+Why don't we try it with a country?
+5:49
+Let's go with India.
+5:52
+And we've got is open to public false.
+5:55
+Well, that guesses North Sentinel Island which is indeed not open to the public, extremely dangerous place to go.
+6:01
+If we flip this to true, I think we're gonna get nothing.
+6:04
+Oh, I beg your pardon.
+6:05
+We have got one in India which is open to the public.
+6:09
+Let's change this to Europe and Norway.
+6:13
+Oh, I've done something ridiculous.
+6:15
+Sorry.
+6:15
+I meant country of Norway and is open to public.
+6:19
+True.
+6:19
+Obviously, you knew that.
+6:21
+And there we are.
+6:22
+We have got something in Norway which is open to the public and you pronounce it I
+6:30
+guess.
+6:31
+Something along those lines.
+6:32
+Okay, that's fine.
+6:34
+Let's just flip that to false and nothing in Norway is not open to the public.
+6:39
+A very open and free country.
+6:41
+Okay, so we are done here because this REST API is working and is working really, really well.
+6:48
+And actually, I think we've written some pretty decent code here, and we've kept things pretty much nice and tidy as well.
+6:55
+Although, actually, I do just want to tidy something up quickly because in get data by query params, I actually deleted the two lowercase method right here because this is a boolean, not a string.
+7:07
+But I should have actually kept it here.
+7:09
+This is actually a string because if somebody used an uppercase t, for example, on the word true in the URL, JSON dot pass would not pass it as a boolean.
+7:17
+It would fail.
+7:18
+And that does just highlight that although we're using JSON dot pass here to get a boolean and it works fine in this app, it is only dealing with lowercase strings, true and false, nothing else.
+7:29
+So if in the future you're developing something and you find yourself in a similar position, depending on the situation, a more robust solution might be necessary.
+7:38
+For example, if the string true was going to be uppercase or if you were accepting yes and no as well.
+7:43
+But in our case, this is gonna work absolutely fine, but we should really have to lowercase here just in case somebody does use an uppercase letter in the URL.
+7:51
+Okay.
+7:52
+We have got one more thing to iron out, which is to do with what would happen if you took this code out of Scrimba and tried to deploy it.
+7:59
+We are gonna talk about that in the next scrim.
