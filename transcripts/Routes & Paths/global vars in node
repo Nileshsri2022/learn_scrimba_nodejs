@@ -1,0 +1,151 @@
+Transcript
+0:00
+I want to give you a quick explainer on global variables in the node environment because over time, things have changed.
+0:06
+And that's not surprising.
+0:08
+Things change pretty fast in this game, but that does not mean, of course, that code bases get updated.
+0:14
+Billions of lines of code are sitting out there unchanged from the day they were written.
+0:19
+So in the real world, you sometimes need to be prepared to jump into your time machine and go back to the past, But not in a cool way like this.
+0:30
+Let me show you what I'm talking about.
+0:32
+I've got a basic node environment right here just like we had at the very beginning of the first project in this course.
+0:39
+I've got a package dot JSON file, but it's just got an empty object in it.
+0:43
+And because we haven't specified the type module, that means we're in a common JavaScript environment and not in the more modern ES modules environment that we've been using so far.
+0:53
+What does that mean?
+0:54
+Well, it basically means we're being quite old school.
+0:58
+If I try to use an import statement, so let's just import HTTP from HTTP.
+1:05
+I'll save that and we can run this file with node and then index dot j s.
+1:11
+Let's hit enter and we get an error.
+1:14
+Module type of file is not specified and doesn't pass as common j s.
+1:19
+So we're in a common JS environment and import does not work.
+1:23
+That is for modular JavaScript only.
+1:26
+So to make this work in common JavaScript, we need to use the require keyword.
+1:30
+So I could say const HTTP and I'll set that equals to require HTTP.
+1:37
+If I save that and run the code, no problem at all.
+1:41
+Now the use of require versus import is probably the most obvious difference between common JavaScript and ES modules, but it's definitely not the only difference.
+1:51
+So let's talk about global variables.
+1:54
+In this common JavaScript environment, we have actually got access to dirname or directory name as a global variable that is just available to us.
+2:04
+So we can log this out.
+2:06
+And while we're at it, might also log out file name, which is something we haven't needed in this course yet, but it's also a global variable.
+2:14
+So let's just delete this require statement, which we don't need.
+2:17
+I'll save that, run this code and look we're getting our directory name which we've got right there and then the filename global variable gives us the directory name plus the actual name of the file.
+2:30
+Now bizarrely as things evolved and we got the modular JavaScript system, some things actually became more complicated.
+2:36
+And these two, the dir name and the file name, are examples of exactly that.
+2:42
+Why did that happen?
+2:43
+Well, we don't really need to go deep into details, but basically, there are distinct design philosophies between CommonJS and ES modules.
+2:51
+CommonJS is more focused on Node.
+2:53
+Js specific features, while ES modules aims for compatibility with the whole broad JavaScript ecosystem.
+3:00
+And so what we'll see now if we open up the package dot JSON and we just add type and module and because it's JSON these need to be in quotes or inverted commas.
+3:11
+We'll save that and now let's run this code again and we get an error.
+3:17
+What have we got here?
+3:18
+Dir name is not defined in ES module scope.
+3:21
+So this fails and using modular JavaScript has made our lives slightly more complicated because now as we know we need to access these from import dot meta.
+3:30
+So let's just write some comments here.
+3:33
+So that is CommonJS giving us access to the domain and file name as global variables.
+3:38
+Okay.
+3:39
+Let's come right up to date with the import dot meta method.
+3:43
+And again, I'll save that.
+3:45
+And if we run the code, those two are working.
+3:48
+So that's not too much of a big deal.
+3:50
+We solved the problem by using what a dozen or so extra characters of code, but it's not the end of the world.
+3:55
+But actually, things used to be much worse than this because this is using import meta, but only with version twenty of node or later.
+4:05
+What we need to do is filling the gap right here, and this is gonna be ES modules before version twenty of node.
+4:14
+And maybe I'll just add ES modules here just to be absolutely clear.
+4:18
+Okay.
+4:19
+So at this time, things were much more difficult.
+4:22
+For a start, we need to import two modules.
+4:25
+So I'm gonna import path from path and import URL from URL.
+4:31
+Now I'll just comment out these two and I'm gonna set up a couple of consts here.
+4:36
+So we'll say const filename and const dirname.
+4:40
+And I'm keeping the double underscore convention to show that these are meant to be global variables.
+4:46
+Now to get the filename, I need to take the URL module and I need to use a special method from there called file URL to path and then I pass in import dot meta.
+4:58
+But previous to version twenty in node, import dot meta did not have access to file name or dirname directly.
+5:05
+So we're gonna say import dot meta and we'll get the URL.
+5:09
+Now to get the directory name we have to use the file name.
+5:12
+So here we'll take the path module and the dirname and access its dirname method and pass in, you guessed it, the file name.
+5:22
+And now we should be able to log both of those.
+5:26
+Okay.
+5:26
+Let's save and we'll give it a try.
+5:28
+And there we are.
+5:29
+We're getting the same thing as we got before.
+5:32
+But look at all of this code we had to write.
+5:34
+That is massively annoying.
+5:36
+As you can imagine, this workaround was not popular and so that's why in later versions of Node, we finally got this method much, much simpler.
+5:46
+Now I don't expect you to understand everything we did there.
+5:49
+We haven't gone into it in any detail.
+5:51
+I just wanted to show it to you because you will likely see any one of these methods in code bases that you might be working on in the future.
+5:59
+So it's just good to be aware of the history of global variables in node.
+6:03
+Okay.
+6:04
+With that out of the way, let's power up the DeLorean and go back to the course.
